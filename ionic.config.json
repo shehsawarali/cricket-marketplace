@@ -1,0 +1,7 @@
+{
+  "name": "crickpro",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
