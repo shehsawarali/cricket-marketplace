@@ -9,14 +9,10 @@ import {
   IonTabs,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import {
-  copyOutline,
-  addCircleOutline,
-  personCircleOutline,
-} from "ionicons/icons";
-import Tab1 from "./pages/Tab1";
-import Tab2 from "./pages/Tab2";
-import EquipmentDetail from "./pages/EquipmentDetail";
+import { copyOutline, addCircleOutline } from "ionicons/icons";
+import Catalog from "./pages/Catalog/Catalog";
+import MyListings from "./pages/MyListings/MyListings";
+import EquipmentDetail from "./pages/EquipmentDetail/EquipmentDetail";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -36,6 +32,7 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
+import SellForm from "./pages/SellForm/SellForm";
 
 const App: React.FC = () => (
   <IonApp>
@@ -43,10 +40,13 @@ const App: React.FC = () => (
       <IonTabs>
         <IonRouterOutlet>
           <Route exact path="/catalog">
-            <Tab1 />
+            <Catalog />
           </Route>
-          <Route exact path="/sell">
-            <Tab2 />
+          <Route exact path="/listings">
+            <MyListings />
+          </Route>
+          <Route exact path="/add-listing">
+            <SellForm />
           </Route>
           <Route path="/catalog/equipment/:id">
             <EquipmentDetail />
@@ -62,7 +62,7 @@ const App: React.FC = () => (
             <IonLabel>Catalog</IonLabel>
           </IonTabButton>
 
-          <IonTabButton tab="tab2" href="/sell">
+          <IonTabButton tab="tab2" href="/listings">
             <IonIcon
               icon={addCircleOutline}
               className={"ion-no-margin"}

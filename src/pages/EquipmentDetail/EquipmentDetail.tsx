@@ -28,10 +28,10 @@ import {
   infiniteOutline,
   gitCompareOutline,
 } from "ionicons/icons";
-import image from "../orange.jpeg";
+import image from "../../orange.jpeg";
 import "./EquipmentDetail.css";
-import TechnicalDataField from "../components/TechnicalDataField/TechnicalDataField";
-import RelatedEquipmentCard from "../components/RelatedEquipmentCard/RelatedEquipmentCard";
+import TechnicalDataField from "../../components/TechnicalDataField/TechnicalDataField";
+import RelatedEquipmentCard from "../../components/RelatedEquipmentCard/RelatedEquipmentCard";
 import { useParams } from "react-router";
 
 const EquipmentDetail: React.FC = () => {
@@ -51,7 +51,7 @@ const EquipmentDetail: React.FC = () => {
       </IonHeader>
 
       <IonContent fullscreen>
-        <IonSlides pager={true}>
+        <IonSlides pager>
           <IonSlide>
             <IonImg src={image} style={{ height: "310px" }} />
           </IonSlide>

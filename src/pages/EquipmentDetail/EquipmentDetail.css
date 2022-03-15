@@ -58,3 +58,7 @@
     max-width: calc(100% - 35px);
     font-size: 17px;
 }
+
+.sub-heading{
+    font-weight: bold;
+}

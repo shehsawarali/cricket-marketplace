@@ -83,6 +83,16 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-light-tint: #f5f6f9;
 }
 
+.swiper-pagination-bullet {
+  --bullet-background: white;
+  background-color: lightgray;
+}
+
+.swiper-pagination-bullet-active {
+  --bullet-background: white;
+  background-color: white;
+}
+
 @media (prefers-color-scheme: dark) {
   /*
    * Dark Colors

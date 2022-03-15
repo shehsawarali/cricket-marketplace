@@ -9,11 +9,11 @@ import {
   IonText,
   IonLabel,
 } from "@ionic/react";
-import "./Tab1.css";
+import "./Catalog.css";
 import { searchOutline, locationOutline } from "ionicons/icons";
-import CatalogCard from "../components/CatalogCard/CatalogCard";
+import CatalogCard from "../../components/CatalogCard/CatalogCard";
 
-const Tab1: React.FC = () => {
+const Catalog: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
@@ -57,4 +57,4 @@ const Tab1: React.FC = () => {
   );
 };
 
-export default Tab1;
+export default Catalog;
