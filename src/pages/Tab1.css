@@ -1,0 +1,22 @@
+.catalog-location{
+    /*width: 60%;*/
+}
+
+.catalog-location ion-text{
+    text-align: right;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.catalog-location ion-icon{
+    padding-right: 8px;
+}
+
+.bold{
+    fontWeight: bold;
+}
+
+ion-slide{
+    width: 100%;
+}

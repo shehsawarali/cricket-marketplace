@@ -1,0 +1,14 @@
+.catalog-card{
+    padding-bottom: 25px;
+}
+
+.catalog-card ion-slides,
+.catalog-card ion-slide,
+.catalog-card ion-img{
+    height: 270px !important;
+    background-color: black;
+}
+
+ion-img{
+    object-fit:cover;
+}

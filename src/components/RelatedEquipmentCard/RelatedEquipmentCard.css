@@ -1,0 +1,16 @@
+.related-equipment-card{
+    font-weight: normal;
+    padding-bottom: 0;
+    margin-bottom: 25px;
+}
+
+.related-equipment-card ion-slides,
+.related-equipment-card ion-slide,
+.related-equipment-card ion-img{
+    height: 200px !important;
+    background-color: black;
+}
+
+.related-equipment-card h4{
+
+}
