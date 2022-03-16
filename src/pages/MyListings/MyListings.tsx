@@ -5,24 +5,23 @@ import {
   IonTitle,
   IonToolbar,
   IonIcon,
-  IonRow,
   IonText,
-  IonLabel,
   IonButton,
   IonRouterLink,
 } from "@ionic/react";
 import "./MyListings.css";
-import { searchOutline, locationOutline } from "ionicons/icons";
-import CatalogCard from "../../components/CatalogCard/CatalogCard";
-import React from "react";
-import { useHistory } from "react-router-dom";
+import { searchOutline } from "ionicons/icons";
+import React, { useState } from "react";
+import MyListingCard from "../../components/MyListingCard.tsx/MyListingCard";
+
+const mockData = {
+  id: "1",
+  name: "Used Marathon WS 5043-830 Open End Auto-Tie Horizontal Baler",
+  price: "65,000.00",
+};
 
 const MyListings: React.FC = () => {
-  const history = useHistory();
-  const onClick = (event: React.MouseEvent<HTMLIonButtonElement>) => {
-    event.preventDefault();
-    history.push("/add-listing");
-  };
+  const [listings, setListings] = useState([mockData]);
 
   return (
     <IonPage>
@@ -36,35 +35,63 @@ const MyListings: React.FC = () => {
         </IonToolbar>
       </IonHeader>
 
-      <IonContent fullscreen>
+      <IonContent>
         <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">My Listings</IonTitle>
           </IonToolbar>
         </IonHeader>
 
-        <div
-          id="no-listings"
-          className={"ion-padding ion-text-center"}
-          style={{ width: "100%" }}
-        >
-          <IonText style={{ fontSize: "16px", color: "indianred" }}>
-            You Haven't Published Any Listings
-          </IonText>
+        {listings?.length < 1 && (
+          <div className={"ion-padding ion-text-center"}>
+            <IonText style={{ fontSize: "16px", color: "indianred" }}>
+              You Haven't Published Any Listings
+            </IonText>
 
-          <IonButton
-            className={"ion-margin"}
-            color={"success"}
-            expand={"full"}
-            size={"large"}
-            onClick={onClick}
-            style={{
-              fontSize: "18px",
-            }}
-          >
-            Start Selling
-          </IonButton>
-        </div>
+            <IonRouterLink routerLink={"/add-listing"} color={"dark"}>
+              <IonButton
+                className={"ion-margin"}
+                color={"success"}
+                expand={"full"}
+                size={"large"}
+                style={{
+                  fontSize: "18px",
+                }}
+              >
+                Start Selling
+              </IonButton>
+            </IonRouterLink>
+          </div>
+        )}
+
+        {listings.length > 0 && (
+          <>
+            {listings.map((listing: any, index: any) => {
+              return (
+                <MyListingCard
+                  key={index}
+                  id={listing.id}
+                  name={listing.name}
+                  price={listing.price}
+                />
+              );
+            })}
+
+            <IonRouterLink routerLink={"/add-listing"} color={"dark"}>
+              <IonButton
+                className={"ion-margin"}
+                color={"success"}
+                expand={"full"}
+                size={"large"}
+                style={{
+                  fontSize: "18px",
+                }}
+              >
+                Start Selling
+              </IonButton>
+            </IonRouterLink>
+          </>
+        )}
       </IonContent>
     </IonPage>
   );
