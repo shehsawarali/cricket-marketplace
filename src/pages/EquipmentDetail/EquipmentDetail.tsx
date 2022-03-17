@@ -77,17 +77,17 @@ const EquipmentDetail: React.FC = () => {
 
           <div id={"equipment-overview"}>
             <IonRow className="ion-align-items-center ion-margin-top equipment-overview">
-              <IonIcon icon={locationOutline} className={"ion-margin-end"} />
+              <IonIcon icon={locationOutline} className={"ion-padding-end"} />
               <IonText>Salt Lake City, UT 84104, USA</IonText>
             </IonRow>
 
             <IonRow className="ion-align-items-center ion-margin-top equipment-overview">
-              <IonIcon icon={gitCompareOutline} className={"ion-margin-end"} />
+              <IonIcon icon={gitCompareOutline} className={"ion-padding-end"} />
               <IonText>Marathon Equipment Company</IonText>
             </IonRow>
 
             <IonRow className="ion-align-items-center ion-margin-top equipment-overview">
-              <IonIcon icon={infiniteOutline} className={"ion-margin-end"} />
+              <IonIcon icon={infiniteOutline} className={"ion-padding-end"} />
               <IonText>Single Ram Open End Auto-Tie Horizontal Balers</IonText>
             </IonRow>
           </div>

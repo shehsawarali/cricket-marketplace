@@ -50,7 +50,7 @@ const MyListings: React.FC = () => {
 
             <IonRouterLink routerLink={"/add-listing"} color={"dark"}>
               <IonButton
-                className={"ion-margin"}
+                className={"ion-margin-vertical"}
                 color={"success"}
                 expand={"full"}
                 size={"large"}
