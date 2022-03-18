@@ -13,6 +13,7 @@ import {
 import image from "../../orange.jpeg";
 import "./CatalogCard.css";
 import { locationOutline, chatbubblesOutline } from "ionicons/icons";
+import { mockPhoneNumber } from "../../constants";
 
 interface equipment {
   id: string;
@@ -23,60 +24,62 @@ interface equipment {
   categories: Array<string>;
 }
 
+const phoneNumber = mockPhoneNumber;
 const images = [image, image];
 
 const CatalogCard: React.FC<equipment> = (equipment) => {
   return (
-    <IonRouterLink
-      routerLink={`/catalog/equipment/${equipment.id}`}
-      color={"dark"}
-    >
-      <div className={"catalog-card ion-padding-horizontal"}>
-        {images.length > 0 && (
-          <IonSlides pager color={"dark"}>
-            {images.map((image: any, index: any) => (
-              <IonSlide key={index}>
-                <IonImg src={image} />
-              </IonSlide>
-            ))}
-          </IonSlides>
-        )}
+    <div className={"catalog-card ion-padding-horizontal"}>
+      <IonRouterLink
+        routerLink={`/catalog/equipment/${equipment.id}`}
+        color={"dark"}
+      >
+        <IonSlides pager color={"dark"}>
+          {images.map((image: any, index: any) => (
+            <IonSlide key={index}>
+              <IonImg src={image} />
+            </IonSlide>
+          ))}
+        </IonSlides>
+      </IonRouterLink>
 
-        <IonRow
-          className="ion-justify-content-between ion-align-items-center"
-          style={{ padding: "10px 0 5px" }}
-        >
-          <IonRow className="ion-align-items-center">
-            <IonIcon icon={locationOutline} style={{ marginRight: "10px" }} />
-            {equipment.location}
-          </IonRow>
-          <IonText style={{ fontStyle: "italic" }}>
-            <small>{equipment.distance} Mi. Away</small>
-          </IonText>
+      <IonRow
+        className="ion-justify-content-between ion-align-items-center"
+        style={{ padding: "10px 0 5px" }}
+      >
+        <IonRow className="ion-align-items-center">
+          <IonIcon icon={locationOutline} style={{ marginRight: "10px" }} />
+          {equipment.location}
         </IonRow>
-
-        <IonChip>
-          <IonLabel>Refurbished (Up To Spec)</IonLabel>
-        </IonChip>
-
-        <IonText>
-          <h4 style={{ margin: "5px 0 0", fontWeight: "normal" }}>
-            {equipment.name}
-          </h4>
+        <IonText style={{ fontStyle: "italic" }}>
+          <small>{equipment.distance} Mi. Away</small>
         </IonText>
+      </IonRow>
 
-        <IonRow
-          className={"ion-justify-content-between ion-align-items-center"}
+      <IonChip>
+        <IonLabel>Refurbished (Up To Spec)</IonLabel>
+      </IonChip>
+
+      <IonText>
+        <h4 style={{ margin: "5px 0 0", fontWeight: "normal" }}>
+          {equipment.name}
+        </h4>
+      </IonText>
+
+      <IonRow className={"ion-justify-content-between ion-align-items-center"}>
+        <strong style={{ color: "red" }}>${equipment.price}</strong>
+
+        <a
+          href={`https://wa.me/${phoneNumber}`}
+          style={{ textDecoration: "none" }}
         >
-          <strong style={{ color: "red" }}>${equipment.price}</strong>
-
           <IonChip color={"success"}>
             <IonIcon icon={chatbubblesOutline} />
             <IonLabel>Send a Message</IonLabel>
           </IonChip>
-        </IonRow>
-      </div>
-    </IonRouterLink>
+        </a>
+      </IonRow>
+    </div>
   );
 };
 

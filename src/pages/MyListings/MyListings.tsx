@@ -26,7 +26,7 @@ interface equipment {
 }
 
 const MyListings: React.FC = () => {
-  const [listings, setListings] = useState<Array<equipment>>([]);
+  const [listings, setListings] = useState<Array<equipment>>([mockEquipment]);
 
   useEffect(() => {
     // setListings([mockEquipment]);
@@ -71,17 +71,18 @@ const MyListings: React.FC = () => {
         )}
 
         <IonRouterLink routerLink={"/add-listing"} color={"dark"}>
-          <IonButton
-            className={"ion-margin"}
-            color={"success"}
-            expand={"full"}
-            size={"large"}
-            style={{
-              fontSize: "18px",
-            }}
-          >
-            Start Selling
-          </IonButton>
+          <div className={"ion-padding"}>
+            <IonButton
+              color={"success"}
+              expand={"full"}
+              size={"large"}
+              style={{
+                fontSize: "18px",
+              }}
+            >
+              Start Selling
+            </IonButton>
+          </div>
         </IonRouterLink>
       </IonContent>
     </IonPage>

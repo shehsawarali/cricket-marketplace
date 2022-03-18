@@ -60,11 +60,10 @@ const EquipmentDetail: React.FC = () => {
   }, []);
 
   const socialShare = async () => {
-    const shareResult = await Share.share({
+    await Share.share({
       title: "CrickPro Marketplace",
       text: "Really awesome thing you need to see right meow",
       url: "http://ionicframework.com/",
-      dialogTitle: "Share with buddies",
     });
   };
 
@@ -204,6 +203,7 @@ const EquipmentDetail: React.FC = () => {
               >
                 <IonIcon
                   icon={arrowRedoSharp}
+                  onClick={socialShare}
                   className={"large-icon"}
                   slot={"icon-only"}
                 />

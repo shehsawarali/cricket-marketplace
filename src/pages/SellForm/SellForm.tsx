@@ -39,18 +39,6 @@ const SellForm: React.FC = () => {
     setSelectedImages(cameraResultImg.photos);
   };
 
-  const generateErrorMessage = (formikErrors: any) => {
-    if (formikErrors.name) return formikErrors.name;
-
-    if (formikErrors.categories) return formikErrors.categories;
-
-    if (formikErrors.description) return formikErrors.categories;
-
-    if (formikErrors.price) return formikErrors.categories;
-
-    if (selectedImages.length == 0) return "Select at least one image/video";
-  };
-
   return (
     <IonPage>
       <HideTabs />
@@ -66,7 +54,6 @@ const SellForm: React.FC = () => {
         <PageTitle title={"Sell Now"} />
 
         <Formik
-          validationSchema={sellFormValidation}
           initialValues={{
             name: null,
             description: null,
@@ -134,38 +121,43 @@ const SellForm: React.FC = () => {
                 />
               </IonItem>
 
-              <IonButton
-                expand={"full"}
-                size={"large"}
-                className={"ion-margin"}
-                color={"warning"}
-                style={{
-                  height: "100px",
-                }}
-                onClick={() => attachPictures()}
-              >
-                <IonIcon
-                  icon={imagesOutline}
-                  style={{ fontSize: "28px" }}
-                  className={"ion-padding-end"}
-                />
-                {selectedImages.length > 0
-                  ? `${selectedImages.length} selected`
-                  : "Attach pictures"}
-              </IonButton>
+              <div className={"ion-padding"}>
+                <IonButton
+                  expand={"full"}
+                  size={"large"}
+                  color={"warning"}
+                  style={{
+                    height: "100px",
+                  }}
+                  onClick={() => attachPictures()}
+                >
+                  <IonIcon
+                    icon={imagesOutline}
+                    style={{ fontSize: "28px" }}
+                    className={"ion-padding-end"}
+                  />
+                  {selectedImages.length > 0
+                    ? `${selectedImages.length} selected`
+                    : "Attach pictures"}
+                </IonButton>
+              </div>
 
-              <IonButton
-                type={"submit"}
-                expand={"full"}
-                size={"large"}
-                className={"ion-margin"}
-                color={"primary"}
-                style={{
-                  fontSize: "18px",
-                }}
+              <div
+                className={"ion-padding"}
+                style={{ verticalAlign: "bottom" }}
               >
-                Submit
-              </IonButton>
+                <IonButton
+                  type={"submit"}
+                  expand={"full"}
+                  size={"large"}
+                  color={"primary"}
+                  style={{
+                    fontSize: "18px",
+                  }}
+                >
+                  Submit
+                </IonButton>
+              </div>
             </form>
           )}
         </Formik>

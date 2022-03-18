@@ -16,6 +16,7 @@ import { locationOutline, searchOutline } from "ionicons/icons";
 import CatalogCard from "../../components/CatalogCard/CatalogCard";
 import PageTitle from "../../components/PageTitle";
 import { mockEquipment } from "../../constants";
+import LocationModal from "../../components/LocationModal/LocationModal";
 
 interface equipment {
   id: string;
@@ -28,7 +29,8 @@ interface equipment {
 
 const Catalog: React.FC = () => {
   const scrollRef = useRef<HTMLIonInfiniteScrollElement>(null);
-  const [location, setLocation] = useState("Calgary");
+  const [location, setLocation] = useState<string>("Calgary");
+  const [showModal, setShowModal] = useState<boolean>(false);
   const [catalogData, setCatalogData] = useState<Array<equipment>>([
     mockEquipment,
     mockEquipment,
@@ -45,6 +47,10 @@ const Catalog: React.FC = () => {
     if (scrollRef.current) {
       scrollRef.current.complete();
     }
+  };
+
+  const toggleModal = () => {
+    setShowModal((currentState) => !currentState);
   };
 
   return (
@@ -66,7 +72,10 @@ const Catalog: React.FC = () => {
           <IonText style={{ fontWeight: "800", fontSize: "17px" }}>
             Newly Added
           </IonText>
-          <IonRow className="ion-align-items-center catalog-location">
+          <IonRow
+            className="ion-align-items-center catalog-location"
+            onClick={toggleModal}
+          >
             <IonIcon
               icon={locationOutline}
               color={"tertiary"}
@@ -104,6 +113,12 @@ const Catalog: React.FC = () => {
             </IonInfiniteScroll>
           </>
         )}
+
+        <LocationModal
+          isOpen={showModal}
+          setValue={setLocation}
+          close={toggleModal}
+        />
       </IonContent>
     </IonPage>
   );

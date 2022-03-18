@@ -29,6 +29,10 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Crickpro Marketplace</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string></string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Crickpro Marketplace</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Crickpro Marketplace</string>
 	<key>NSPhotoLibraryUsageDescription</key>
