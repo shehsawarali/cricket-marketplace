@@ -36,11 +36,9 @@ import { useParams } from "react-router";
 import HideTabs from "../../components/HideTabs";
 import { mockEquipment, mockPhoneNumber } from "../../constants";
 import { Share } from "@capacitor/share";
-import { Camera } from "@capacitor/camera";
 
-// Hardcoded for dev
-const images = [image, image];
-const phoneNumber = mockPhoneNumber;
+const images = [image, image]; // Hardcoded for dev
+const phoneNumber = mockPhoneNumber; // Hardcoded for dev
 
 interface equipment {
   id: string;
@@ -197,13 +195,13 @@ const EquipmentDetail: React.FC = () => {
               <IonButton
                 className={"large-icon-button ion-no-padding"}
                 color={"dark"}
+                onClick={socialShare}
                 style={{
                   borderRadius: "50%",
                 }}
               >
                 <IonIcon
                   icon={arrowRedoSharp}
-                  onClick={socialShare}
                   className={"large-icon"}
                   slot={"icon-only"}
                 />
