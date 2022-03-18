@@ -1,19 +1,38 @@
+import React, { useState } from "react";
 import {
   IonContent,
-  IonHeader,
   IonPage,
-  IonTitle,
-  IonToolbar,
   IonIcon,
   IonRow,
   IonText,
   IonLabel,
+  IonToolbar,
+  IonHeader,
 } from "@ionic/react";
 import "./Catalog.css";
-import { searchOutline, locationOutline } from "ionicons/icons";
+import { locationOutline, searchOutline } from "ionicons/icons";
 import CatalogCard from "../../components/CatalogCard/CatalogCard";
+import PageTitle from "../../components/PageTitle";
+import { mockEquipment } from "../../constants";
+
+interface equipment {
+  id: string;
+  name: string;
+  price: string;
+  location: string;
+  distance: string;
+  categories: Array<string>;
+}
 
 const Catalog: React.FC = () => {
+  const [catalogData, setCatalogData] = useState<Array<equipment>>([
+    mockEquipment,
+    mockEquipment,
+    mockEquipment,
+  ]);
+
+  const [location, setLocation] = useState("Calgary");
+
   return (
     <IonPage>
       <IonHeader>
@@ -27,13 +46,8 @@ const Catalog: React.FC = () => {
       </IonHeader>
 
       <IonContent>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Dealer Catalog</IonTitle>
-          </IonToolbar>
-        </IonHeader>
+        <PageTitle title={"Dealer Catalog"} />
 
-        {/*<IonContent>*/}
         <IonRow className="ion-justify-content-between ion-padding">
           <IonText style={{ fontWeight: "800", fontSize: "17px" }}>
             Newly Added
@@ -44,15 +58,28 @@ const Catalog: React.FC = () => {
               color={"tertiary"}
               className="location-icon"
             />
-            <IonLabel color={"tertiary"}>Calgary</IonLabel>
+            <IonLabel color={"tertiary"}>{location}</IonLabel>
           </IonRow>
         </IonRow>
 
-        <CatalogCard name={"Example Equipment"} />
-        <CatalogCard name={"Example Equipment"} />
-        <CatalogCard name={"Example Equipment"} />
+        {catalogData.length > 0 && (
+          <>
+            {catalogData.map((equipment: equipment, index: any) => {
+              return (
+                <CatalogCard
+                  key={index}
+                  id={equipment.id}
+                  name={equipment.name}
+                  price={equipment.price}
+                  location={equipment.location}
+                  distance={equipment.distance}
+                  categories={equipment.categories}
+                />
+              );
+            })}
+          </>
+        )}
       </IonContent>
-      {/*</IonContent>*/}
     </IonPage>
   );
 };

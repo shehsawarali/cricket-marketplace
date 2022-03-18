@@ -1,8 +1,9 @@
+import React, { useState, useEffect } from "react";
+
 import {
   IonContent,
   IonHeader,
   IonPage,
-  IonTitle,
   IonToolbar,
   IonIcon,
   IonText,
@@ -11,17 +12,25 @@ import {
 } from "@ionic/react";
 import "./MyListings.css";
 import { searchOutline } from "ionicons/icons";
-import React, { useState } from "react";
 import MyListingCard from "../../components/MyListingCard.tsx/MyListingCard";
+import PageTitle from "../../components/PageTitle";
+import { mockEquipment } from "../../constants";
 
-const mockData = {
-  id: "1",
-  name: "Used Marathon WS 5043-830 Open End Auto-Tie Horizontal Baler",
-  price: "65,000.00",
-};
+interface equipment {
+  id: string;
+  name: string;
+  price: string;
+  location: string;
+  distance: string;
+  categories: Array<string>;
+}
 
 const MyListings: React.FC = () => {
-  const [listings, setListings] = useState([mockData]);
+  const [listings, setListings] = useState<Array<equipment>>([]);
+
+  useEffect(() => {
+    // setListings([mockEquipment]);
+  }, []);
 
   return (
     <IonPage>
@@ -36,31 +45,13 @@ const MyListings: React.FC = () => {
       </IonHeader>
 
       <IonContent>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">My Listings</IonTitle>
-          </IonToolbar>
-        </IonHeader>
+        <PageTitle title={"My Listings"} />
 
-        {listings?.length < 1 && (
-          <div className={"ion-padding ion-text-center"}>
+        {listings.length < 1 && (
+          <div className={"ion-padding-top ion-text-center"}>
             <IonText style={{ fontSize: "16px", color: "indianred" }}>
               You Haven't Published Any Listings
             </IonText>
-
-            <IonRouterLink routerLink={"/add-listing"} color={"dark"}>
-              <IonButton
-                className={"ion-margin-vertical"}
-                color={"success"}
-                expand={"full"}
-                size={"large"}
-                style={{
-                  fontSize: "18px",
-                }}
-              >
-                Start Selling
-              </IonButton>
-            </IonRouterLink>
           </div>
         )}
 
@@ -76,22 +67,22 @@ const MyListings: React.FC = () => {
                 />
               );
             })}
-
-            <IonRouterLink routerLink={"/add-listing"} color={"dark"}>
-              <IonButton
-                className={"ion-margin"}
-                color={"success"}
-                expand={"full"}
-                size={"large"}
-                style={{
-                  fontSize: "18px",
-                }}
-              >
-                Start Selling
-              </IonButton>
-            </IonRouterLink>
           </>
         )}
+
+        <IonRouterLink routerLink={"/add-listing"} color={"dark"}>
+          <IonButton
+            className={"ion-margin"}
+            color={"success"}
+            expand={"full"}
+            size={"large"}
+            style={{
+              fontSize: "18px",
+            }}
+          >
+            Start Selling
+          </IonButton>
+        </IonRouterLink>
       </IonContent>
     </IonPage>
   );

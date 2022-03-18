@@ -1,3 +1,4 @@
+import React, { useContext } from "react";
 import { Redirect, Route } from "react-router-dom";
 import {
   IonApp,
@@ -33,49 +34,60 @@ import "@ionic/react/css/display.css";
 /* Theme variables */
 import "./theme/variables.css";
 import SellForm from "./pages/SellForm/SellForm";
+import UIContext from "./context/UIContext";
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonTabs>
-        <IonRouterOutlet>
-          <Route exact path="/catalog">
-            <Catalog />
-          </Route>
-          <Route exact path="/listings">
-            <MyListings />
-          </Route>
-          <Route exact path="/add-listing">
-            <SellForm />
-          </Route>
-          <Route path="/catalog/equipment/:id">
-            <EquipmentDetail />
-          </Route>
-          <Route exact path="/">
-            <Redirect to="/catalog" />
-          </Route>
-        </IonRouterOutlet>
+const App: React.FC = () => {
+  const { showTabs } = useContext(UIContext);
 
-        <IonTabBar slot="bottom" className={"ion-padding-bottom"}>
-          <IonTabButton tab="tab1" href="/catalog">
-            <IonIcon icon={copyOutline} />
-            <IonLabel>Catalog</IonLabel>
-          </IonTabButton>
+  let tabBarStyle = showTabs ? undefined : { display: "none" };
 
-          <IonTabButton tab="tab2" href="/listings">
-            <IonIcon
-              icon={addCircleOutline}
-              className={"ion-no-margin"}
-              style={{
-                fontSize: "36px",
-              }}
-            />
-            <IonLabel style={{ fontWeight: "bold" }}>Sell</IonLabel>
-          </IonTabButton>
-        </IonTabBar>
-      </IonTabs>
-    </IonReactRouter>
-  </IonApp>
-);
+  return (
+    <IonApp>
+      <IonReactRouter>
+        <IonTabs>
+          <IonRouterOutlet>
+            <Route exact path="/catalog">
+              <Catalog />
+            </Route>
+            <Route exact path="/listings">
+              <MyListings />
+            </Route>
+            <Route exact path="/add-listing">
+              <SellForm />
+            </Route>
+            <Route path="/catalog/equipment/:id">
+              <EquipmentDetail />
+            </Route>
+            <Route exact path="/">
+              <Redirect to="/catalog" />
+            </Route>
+          </IonRouterOutlet>
+
+          <IonTabBar
+            slot="bottom"
+            className={"ion-padding-bottom"}
+            style={tabBarStyle}
+          >
+            <IonTabButton tab="tab1" href="/catalog">
+              <IonIcon icon={copyOutline} />
+              <IonLabel>Catalog</IonLabel>
+            </IonTabButton>
+
+            <IonTabButton tab="tab2" href="/listings">
+              <IonIcon
+                icon={addCircleOutline}
+                className={"ion-no-margin"}
+                style={{
+                  fontSize: "36px",
+                }}
+              />
+              <IonLabel style={{ fontWeight: "bold" }}>Sell</IonLabel>
+            </IonTabButton>
+          </IonTabBar>
+        </IonTabs>
+      </IonReactRouter>
+    </IonApp>
+  );
+};
 
 export default App;

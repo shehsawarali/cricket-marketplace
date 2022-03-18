@@ -1,14 +1,22 @@
-.catalog-card{
-    padding-bottom: 25px;
+.catalog-card {
+  margin-bottom: 25px;
 }
 
 .catalog-card ion-slides,
 .catalog-card ion-slide,
-.catalog-card ion-img{
-    height: 260px !important;
-    background-color: black;
+.catalog-card ion-img {
+  height: 260px !important;
+  background-color: black;
 }
 
-ion-img{
-    object-fit:cover;
+.catalog-card ion-slides {
+  border-radius: 10px;
+}
+
+ion-img {
+  object-fit: cover;
+}
+
+.catalog-card ion-chip {
+  margin-left: 0;
 }

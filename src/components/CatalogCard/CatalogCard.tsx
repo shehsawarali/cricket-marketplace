@@ -13,31 +13,34 @@ import {
 import image from "../../orange.jpeg";
 import "./CatalogCard.css";
 import { locationOutline, chatbubblesOutline } from "ionicons/icons";
-import { useHistory } from "react-router-dom";
 
-interface CardProps {
+interface equipment {
+  id: string;
   name: string;
+  price: string;
+  location: string;
+  distance: string;
+  categories: Array<string>;
 }
 
-const CatalogCard: React.FC<CardProps> = ({ name }) => {
+const images = [image, image];
+
+const CatalogCard: React.FC<equipment> = (equipment) => {
   return (
-    <IonRouterLink routerLink={"/catalog/equipment/1"} color={"dark"}>
-      <div
-        className={"catalog-card ion-padding-horizontal"}
-        style={{
-          fontWeight: "normal",
-          paddingBottom: "0",
-          marginBottom: "25px",
-        }}
-      >
-        <IonSlides style={{ borderRadius: "10px" }} pager color={"dark"}>
-          <IonSlide>
-            <IonImg src={image} />
-          </IonSlide>
-          <IonSlide>
-            <IonImg src={image} />
-          </IonSlide>
-        </IonSlides>
+    <IonRouterLink
+      routerLink={`/catalog/equipment/${equipment.id}`}
+      color={"dark"}
+    >
+      <div className={"catalog-card ion-padding-horizontal"}>
+        {images.length > 0 && (
+          <IonSlides pager color={"dark"}>
+            {images.map((image: any, index: any) => (
+              <IonSlide key={index}>
+                <IonImg src={image} />
+              </IonSlide>
+            ))}
+          </IonSlides>
+        )}
 
         <IonRow
           className="ion-justify-content-between ion-align-items-center"
@@ -45,27 +48,27 @@ const CatalogCard: React.FC<CardProps> = ({ name }) => {
         >
           <IonRow className="ion-align-items-center">
             <IonIcon icon={locationOutline} style={{ marginRight: "10px" }} />
-            Salt Lake City, UT, US
+            {equipment.location}
           </IonRow>
           <IonText style={{ fontStyle: "italic" }}>
-            <small>719 Mi. Away</small>
+            <small>{equipment.distance} Mi. Away</small>
           </IonText>
         </IonRow>
 
-        <IonChip style={{ marginLeft: "0" }}>
+        <IonChip>
           <IonLabel>Refurbished (Up To Spec)</IonLabel>
         </IonChip>
 
         <IonText>
           <h4 style={{ margin: "5px 0 0", fontWeight: "normal" }}>
-            Used Marathon WS 5043-830 Open End Auto-Tie Horizontal Baler
+            {equipment.name}
           </h4>
         </IonText>
 
         <IonRow
           className={"ion-justify-content-between ion-align-items-center"}
         >
-          <strong style={{ color: "red" }}>$94,000.00</strong>
+          <strong style={{ color: "red" }}>${equipment.price}</strong>
 
           <IonChip color={"success"}>
             <IonIcon icon={chatbubblesOutline} />

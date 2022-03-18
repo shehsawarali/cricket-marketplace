@@ -2,7 +2,6 @@ import {
   IonContent,
   IonHeader,
   IonPage,
-  IonTitle,
   IonToolbar,
   IonIcon,
   IonButtons,
@@ -10,29 +9,25 @@ import {
   IonItem,
   IonLabel,
   IonInput,
-  IonRouterLink,
   IonSelect,
   IonSelectOption,
   IonButton,
-  IonImg,
 } from "@ionic/react";
 import "./SellForm.css";
 import { searchOutline, imagesOutline } from "ionicons/icons";
 import React, { useState } from "react";
 import { categories, sellFormValidation } from "../../constants";
 import { Formik } from "formik";
-import {
-  Camera,
-  CameraResultType,
-  GalleryImageOptions,
-} from "@capacitor/camera";
+import { Camera } from "@capacitor/camera";
+import HideTabs from "../../components/HideTabs";
+import PageTitle from "../../components/PageTitle";
 
 interface Category {
   id: number;
   name: string;
 }
 
-const MyListings: React.FC = () => {
+const SellForm: React.FC = () => {
   const [selectedImages, setSelectedImages] = useState<Array<object>>([]);
 
   const attachPictures = async () => {
@@ -41,15 +36,6 @@ const MyListings: React.FC = () => {
       correctOrientation: true,
     });
 
-    // image.webPath will contain a path that can be set as an image src.
-    // You can access the original file using image.path, which can be
-    // passed to the Filesystem API to read the raw data of the image,
-    // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
-
-    // var imageUrl = cameraResultImg.webPath;
-    //
-    // // Can be set to the src of an image now
-    // console.log(imageUrl);
     setSelectedImages(cameraResultImg.photos);
   };
 
@@ -67,25 +53,17 @@ const MyListings: React.FC = () => {
 
   return (
     <IonPage>
+      <HideTabs />
       <IonHeader>
-        <IonButtons slot="start">
-          <IonBackButton color={"dark"} />
-        </IonButtons>
         <IonToolbar className={"ionic-padding-horizontal"}>
-          <IonIcon
-            icon={searchOutline}
-            style={{ fontSize: "20px", marginRight: "10px" }}
-            slot={"end"}
-          />
+          <IonButtons slot="start">
+            <IonBackButton color={"dark"} />
+          </IonButtons>
         </IonToolbar>
       </IonHeader>
 
       <IonContent>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Sell Now</IonTitle>
-          </IonToolbar>
-        </IonHeader>
+        <PageTitle title={"Sell Now"} />
 
         <Formik
           validationSchema={sellFormValidation}
@@ -196,4 +174,4 @@ const MyListings: React.FC = () => {
   );
 };
 
-export default MyListings;
+export default SellForm;

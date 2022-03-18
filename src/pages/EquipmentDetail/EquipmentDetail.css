@@ -1,64 +1,68 @@
-.large-icon{
-    font-size: 32px;
-    color: var(--ion-color-dark-contrast);
+.equipment-detail .large-icon {
+  font-size: 32px;
+  color: var(--ion-color-dark-contrast);
 }
 
-.large-icon :focus{
-    color: var(--ion-color-dark-shade);
+.equipment-detail .large-icon :focus {
+  color: var(--ion-color-dark-shade);
 }
 
-.large-icon-button{
-    /*--ion-color-dark-shade: #383a3e;*/
-    width: 55px;
-    height: 55px;
-    background-color: var(--ion-color-dark);
-    --border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 10px;
+.equipment-detail .large-icon-button {
+  width: 55px;
+  height: 55px;
+  background-color: var(--ion-color-dark);
+  --border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px;
 }
 
-.large-icons-row ion-col{
-    text-align: center;
-    align-content: center;
-    justify-content: center;
-    margin-bottom: 10px;
+.equipment-detail .large-icons-row ion-col {
+  text-align: center;
+  align-content: center;
+  justify-content: center;
+  margin-bottom: 10px;
 }
 
-.send-message-card{
-    justify-content: center;
-    padding: 5px 10px
+.equipment-detail .send-message-card {
+  justify-content: center;
+  padding: 5px 10px;
 }
 
-.send-message-card ion-card-content{
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-    padding-top: 5px;
+.equipment-detail .send-message-card ion-card-content {
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  padding-top: 5px;
 }
 
-.send-message-card ion-chip{
-    width: 195px;
+.equipment-detail .send-message-card ion-chip {
+  width: 195px;
 }
 
-.send-message-card ion-button{
-    height: 35px;
-    font-size: 12px;
-    margin-top: -5px;
-    --border-radius: 5px;
-    width: 60px;
+.equipment-detail .send-message-card ion-button {
+  height: 35px;
+  font-size: 12px;
+  margin-top: -5px;
+  --border-radius: 5px;
+  width: 60px;
 }
 
-.send-message-card ion-input{
-    --placeholder-opacity: 1;
+.equipment-detail .send-message-card ion-input {
+  --placeholder-opacity: 1;
 }
 
-.equipment-overview ion-text{
-    max-width: calc(100% - 35px);
-    font-size: 17px;
+.equipment-detail .equipment-overview ion-text {
+  max-width: calc(100% - 35px);
+  font-size: 17px;
 }
 
-.sub-heading{
-    font-weight: bold;
+.equipment-detail .sub-heading {
+  font-weight: bold;
+}
+
+.equipment-detail ion-img {
+  height: 310px !important;
+  background-color: black;
 }

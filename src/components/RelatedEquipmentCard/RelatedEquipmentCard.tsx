@@ -1,27 +1,27 @@
 import React from "react";
 import {
-  IonChip,
-  IonLabel,
   IonImg,
   IonSlides,
   IonSlide,
-  IonIcon,
-  IonRow,
   IonText,
   IonRouterLink,
 } from "@ionic/react";
 import image from "../../orange.jpeg";
 import "./RelatedEquipmentCard.css";
-import { locationOutline, chatbubblesOutline } from "ionicons/icons";
-import { useHistory } from "react-router-dom";
 
-interface CardProps {
+interface RelatedEquipmentProps {
+  id: string;
   name: string;
+  price: string;
 }
 
-const RelatedEquipmentCard: React.FC<CardProps> = ({ name }) => {
+const RelatedEquipmentCard: React.FC<RelatedEquipmentProps> = ({
+  id,
+  name,
+  price,
+}) => {
   return (
-    <IonRouterLink routerLink={"/catalog/equipment/4"} color={"dark"}>
+    <IonRouterLink routerLink={`/catalog/equipment/${id}`} color={"dark"}>
       <div className={"related-equipment-card ion-padding-horizontal"}>
         <IonSlides
           pager
@@ -37,11 +37,9 @@ const RelatedEquipmentCard: React.FC<CardProps> = ({ name }) => {
         </IonSlides>
 
         <IonText>
-          <h4 style={{ margin: "5px 0 0", fontWeight: "normal" }}>
-            Used Marathon WS 5043-830 Open End Auto-Tie Horizontal Baler
-          </h4>
+          <h4 style={{ margin: "5px 0 0", fontWeight: "normal" }}>{name}</h4>
 
-          <strong style={{ color: "red" }}>$94,000.00</strong>
+          <strong style={{ color: "red" }}>${price}</strong>
         </IonText>
       </div>
     </IonRouterLink>
