@@ -60,7 +60,7 @@ const EquipmentDetail: React.FC = () => {
   const socialShare = async () => {
     await Share.share({
       title: "CrickPro Marketplace",
-      text: "Really awesome thing you need to see right meow",
+      text: "CrickPro Marketplace",
       url: "http://ionicframework.com/",
     });
   };
