@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   IonContent,
   IonPage,
@@ -8,6 +8,8 @@ import {
   IonLabel,
   IonToolbar,
   IonHeader,
+  IonInfiniteScroll,
+  IonInfiniteScrollContent,
 } from "@ionic/react";
 import "./Catalog.css";
 import { locationOutline, searchOutline } from "ionicons/icons";
@@ -25,13 +27,25 @@ interface equipment {
 }
 
 const Catalog: React.FC = () => {
+  const scrollRef = useRef<HTMLIonInfiniteScrollElement>(null);
+  const [location, setLocation] = useState("Calgary");
   const [catalogData, setCatalogData] = useState<Array<equipment>>([
     mockEquipment,
     mockEquipment,
     mockEquipment,
   ]);
 
-  const [location, setLocation] = useState("Calgary");
+  useEffect(() => {
+    // Add initial API load here
+  }, []);
+
+  const loadData = () => {
+    // Subsequent fetch API for infinite scroll
+
+    if (scrollRef.current) {
+      scrollRef.current.complete();
+    }
+  };
 
   return (
     <IonPage>
@@ -77,6 +91,17 @@ const Catalog: React.FC = () => {
                 />
               );
             })}
+
+            <IonInfiniteScroll
+              threshold="50px"
+              ref={scrollRef}
+              onIonInfinite={loadData}
+            >
+              <IonInfiniteScrollContent
+                loadingSpinner="bubbles"
+                loadingText="Loading more data..."
+              ></IonInfiniteScrollContent>
+            </IonInfiniteScroll>
           </>
         )}
       </IonContent>
