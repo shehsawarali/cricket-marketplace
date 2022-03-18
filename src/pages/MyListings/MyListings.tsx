@@ -5,13 +5,11 @@ import {
   IonHeader,
   IonPage,
   IonToolbar,
-  IonIcon,
   IonText,
   IonButton,
   IonRouterLink,
 } from "@ionic/react";
 import "./MyListings.css";
-import { searchOutline } from "ionicons/icons";
 import MyListingCard from "../../components/MyListingCard.tsx/MyListingCard";
 import PageTitle from "../../components/PageTitle";
 import { mockEquipment } from "../../constants";
@@ -26,22 +24,16 @@ interface equipment {
 }
 
 const MyListings: React.FC = () => {
-  const [listings, setListings] = useState<Array<equipment>>([mockEquipment]);
+  const [listings, setListings] = useState<Array<equipment>>([]);
 
   useEffect(() => {
-    // setListings([mockEquipment]);
+    setListings([mockEquipment]);
   }, []);
 
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar className={"ionic-padding-horizontal"}>
-          <IonIcon
-            icon={searchOutline}
-            style={{ fontSize: "20px", marginRight: "10px" }}
-            slot={"end"}
-          />
-        </IonToolbar>
+        <IonToolbar className={"ionic-padding-horizontal"}></IonToolbar>
       </IonHeader>
 
       <IonContent>

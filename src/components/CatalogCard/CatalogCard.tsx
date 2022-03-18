@@ -13,7 +13,7 @@ import {
 import image from "../../orange.jpeg";
 import "./CatalogCard.css";
 import { locationOutline, chatbubblesOutline } from "ionicons/icons";
-import { mockPhoneNumber } from "../../constants";
+import { mockPhoneNumber, PRIMARY_COLOR } from "../../constants";
 
 interface equipment {
   id: string;
@@ -67,7 +67,7 @@ const CatalogCard: React.FC<equipment> = (equipment) => {
       </IonText>
 
       <IonRow className={"ion-justify-content-between ion-align-items-center"}>
-        <strong style={{ color: "red" }}>${equipment.price}</strong>
+        <strong style={{ color: PRIMARY_COLOR }}>${equipment.price}</strong>
 
         <a
           href={`https://wa.me/${phoneNumber}`}

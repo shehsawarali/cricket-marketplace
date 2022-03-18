@@ -14,7 +14,7 @@ import {
   IonButton,
 } from "@ionic/react";
 import "./SellForm.css";
-import { searchOutline, imagesOutline } from "ionicons/icons";
+import { imagesOutline } from "ionicons/icons";
 import React, { useState } from "react";
 import { categories, sellFormValidation } from "../../constants";
 import { Formik } from "formik";

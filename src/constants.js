@@ -1,6 +1,4 @@
 import * as yup from "yup";
-import TechnicalDataField from "./components/TechnicalDataField/TechnicalDataField";
-import React from "react";
 
 export const categories = [
   {
@@ -42,4 +40,5 @@ export const mockTechnicalData = {
   "Bale Size height": `11"`,
 };
 
-export const mockPhoneNumber = "923313661000";
+export const mockPhoneNumber = "923373661000";
+export const PRIMARY_COLOR = "#f1233c";

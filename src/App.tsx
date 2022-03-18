@@ -14,6 +14,9 @@ import { copyOutline, addCircleOutline } from "ionicons/icons";
 import Catalog from "./pages/Catalog/Catalog";
 import MyListings from "./pages/MyListings/MyListings";
 import EquipmentDetail from "./pages/EquipmentDetail/EquipmentDetail";
+import Search from "./pages/Search/Search";
+import SellForm from "./pages/SellForm/SellForm";
+import UIContext from "./context/UIContext";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -33,8 +36,6 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
-import SellForm from "./pages/SellForm/SellForm";
-import UIContext from "./context/UIContext";
 
 const App: React.FC = () => {
   const { showTabs } = useContext(UIContext);
@@ -57,6 +58,9 @@ const App: React.FC = () => {
             </Route>
             <Route path="/catalog/equipment/:id">
               <EquipmentDetail />
+            </Route>
+            <Route path="/search">
+              <Search />
             </Route>
             <Route exact path="/">
               <Redirect to="/catalog" />

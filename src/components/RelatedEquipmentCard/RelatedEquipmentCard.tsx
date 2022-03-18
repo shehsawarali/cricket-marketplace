@@ -8,6 +8,7 @@ import {
 } from "@ionic/react";
 import image from "../../orange.jpeg";
 import "./RelatedEquipmentCard.css";
+import { PRIMARY_COLOR } from "../../constants";
 
 interface RelatedEquipmentProps {
   id: string;
@@ -39,7 +40,7 @@ const RelatedEquipmentCard: React.FC<RelatedEquipmentProps> = ({
         <IonText>
           <h4 style={{ margin: "5px 0 0", fontWeight: "normal" }}>{name}</h4>
 
-          <strong style={{ color: "red" }}>${price}</strong>
+          <strong style={{ color: PRIMARY_COLOR }}>${price}</strong>
         </IonText>
       </div>
     </IonRouterLink>

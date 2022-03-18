@@ -10,6 +10,8 @@ import {
   IonHeader,
   IonInfiniteScroll,
   IonInfiniteScrollContent,
+  IonButton,
+  IonButtons,
 } from "@ionic/react";
 import "./Catalog.css";
 import { locationOutline, searchOutline } from "ionicons/icons";
@@ -17,6 +19,7 @@ import CatalogCard from "../../components/CatalogCard/CatalogCard";
 import PageTitle from "../../components/PageTitle";
 import { mockEquipment } from "../../constants";
 import LocationModal from "../../components/LocationModal/LocationModal";
+import { useHistory } from "react-router";
 
 interface equipment {
   id: string;
@@ -28,6 +31,7 @@ interface equipment {
 }
 
 const Catalog: React.FC = () => {
+  const history = useHistory();
   const scrollRef = useRef<HTMLIonInfiniteScrollElement>(null);
   const [location, setLocation] = useState<string>("Calgary");
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -56,12 +60,17 @@ const Catalog: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar className={"ionic-padding-horizontal"}>
-          <IonIcon
-            icon={searchOutline}
-            style={{ fontSize: "20px", marginRight: "10px" }}
-            slot={"end"}
-          />
+        <IonToolbar>
+          <IonButtons slot="end">
+            <IonButton onClick={() => history.push("/search")}>
+              <IonIcon
+                color={"dark"}
+                icon={searchOutline}
+                style={{ fontSize: "20px" }}
+                slot={"end"}
+              />
+            </IonButton>
+          </IonButtons>
         </IonToolbar>
       </IonHeader>
 
