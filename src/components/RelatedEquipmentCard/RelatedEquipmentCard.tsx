@@ -37,8 +37,8 @@ const RelatedEquipmentCard: React.FC<RelatedEquipmentProps> = ({
           </IonSlide>
         </IonSlides>
 
-        <IonText>
-          <h4 style={{ margin: "5px 0 0", fontWeight: "normal" }}>{name}</h4>
+        <IonText className={"ion-margin-top"}>
+          <h4 style={{ fontWeight: "normal" }}>{name}</h4>
 
           <strong style={{ color: PRIMARY_COLOR }}>${price}</strong>
         </IonText>

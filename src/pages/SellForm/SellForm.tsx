@@ -148,7 +148,7 @@ const SellForm: React.FC = () => {
               >
                 <IonButton
                   type={"submit"}
-                  expand={"full"}
+                  expand={"block"}
                   size={"large"}
                   color={"primary"}
                   style={{

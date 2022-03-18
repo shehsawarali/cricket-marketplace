@@ -24,6 +24,7 @@ interface LocationModalProps {
   isOpen: boolean;
   setValue: React.Dispatch<React.SetStateAction<string>>;
   close: () => void;
+  parentRef?: HTMLDivElement;
 }
 
 interface location {
@@ -55,7 +56,11 @@ const LocationModal: React.FC<LocationModalProps> = (props) => {
   };
 
   return (
-    <IonModal isOpen={props.isOpen} swipeToClose={false}>
+    <IonModal
+      isOpen={props.isOpen}
+      swipeToClose={false}
+      presentingElement={props.parentRef ? props.parentRef : undefined}
+    >
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">

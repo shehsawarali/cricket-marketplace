@@ -243,7 +243,9 @@ const EquipmentDetail: React.FC = () => {
           </div>
 
           <IonText>
-            <h3 className={"ion-padding-horizontal sub-heading"}>
+            <h3
+              className={"ion-padding-horizontal ion-margin-bottom sub-heading"}
+            >
               Related Equipment
             </h3>
 

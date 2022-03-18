@@ -66,7 +66,7 @@ const MyListings: React.FC = () => {
           <div className={"ion-padding"}>
             <IonButton
               color={"success"}
-              expand={"full"}
+              expand={"block"}
               size={"large"}
               style={{
                 fontSize: "18px",

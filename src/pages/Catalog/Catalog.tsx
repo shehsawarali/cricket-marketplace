@@ -32,7 +32,9 @@ interface equipment {
 
 const Catalog: React.FC = () => {
   const history = useHistory();
+  const catalogRef = React.useRef<any>(null);
   const scrollRef = useRef<HTMLIonInfiniteScrollElement>(null);
+
   const [location, setLocation] = useState<string>("Calgary");
   const [showModal, setShowModal] = useState<boolean>(false);
   const [catalogData, setCatalogData] = useState<Array<equipment>>([
@@ -58,7 +60,7 @@ const Catalog: React.FC = () => {
   };
 
   return (
-    <IonPage>
+    <IonPage ref={catalogRef}>
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="end">
@@ -127,6 +129,7 @@ const Catalog: React.FC = () => {
           isOpen={showModal}
           setValue={setLocation}
           close={toggleModal}
+          parentRef={catalogRef.current}
         />
       </IonContent>
     </IonPage>
