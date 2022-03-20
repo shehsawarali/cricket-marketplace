@@ -13,7 +13,7 @@ import {
 import image from "../../orange.jpeg";
 import "./CatalogCard.css";
 import { locationOutline, chatbubblesOutline } from "ionicons/icons";
-import { mockPhoneNumber, PRIMARY_COLOR } from "../../constants";
+import { mockPhoneNumber } from "../../constants";
 
 interface equipment {
   id: string;
@@ -43,15 +43,12 @@ const CatalogCard: React.FC<equipment> = (equipment) => {
         </IonSlides>
       </IonRouterLink>
 
-      <IonRow
-        className="ion-justify-content-between ion-align-items-center"
-        style={{ padding: "10px 0 5px" }}
-      >
+      <IonRow className={"catalog-card-location"}>
         <IonRow className="ion-align-items-center">
-          <IonIcon icon={locationOutline} style={{ marginRight: "10px" }} />
+          <IonIcon icon={locationOutline} />
           {equipment.location}
         </IonRow>
-        <IonText style={{ fontStyle: "italic" }}>
+        <IonText className={"italic"}>
           <small>{equipment.distance} Mi. Away</small>
         </IonText>
       </IonRow>
@@ -61,17 +58,15 @@ const CatalogCard: React.FC<equipment> = (equipment) => {
       </IonChip>
 
       <IonText>
-        <h4 style={{ margin: "5px 0 0", fontWeight: "normal" }}>
-          {equipment.name}
-        </h4>
+        <h4 className={"catalog-card-title"}>{equipment.name}</h4>
       </IonText>
 
       <IonRow className={"ion-justify-content-between ion-align-items-center"}>
-        <strong style={{ color: PRIMARY_COLOR }}>${equipment.price}</strong>
+        <strong className={"text-primary"}>${equipment.price}</strong>
 
         <a
           href={`https://wa.me/${phoneNumber}`}
-          style={{ textDecoration: "none" }}
+          className={"text-decoration-none"}
         >
           <IonChip color={"success"}>
             <IonIcon icon={chatbubblesOutline} />

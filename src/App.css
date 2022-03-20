@@ -1,0 +1,49 @@
+.mb-10 {
+  margin-bottom: 10px;
+}
+
+.text-overflow {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.swiper-pagination-bullet {
+  --bullet-background: white;
+  background-color: lightgray;
+}
+
+.swiper-pagination-bullet-active {
+  --bullet-background: white;
+  background-color: white;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.text-decoration-none {
+  text-decoration: none;
+}
+
+.text-primary {
+  color: var(--ion-color-primary);
+}
+
+.font-18px {
+  font-size: 18px;
+}
+
+.sell-tab-icon {
+  font-size: 36px;
+}
+
+:root {
+  --ion-item-border-color: #e8e8e8;
+  --ion-item-background: transparent;
+}
+@media (prefers-color-scheme: dark) {
+  body {
+    --ion-item-border-color: dimgray;
+  }
+}

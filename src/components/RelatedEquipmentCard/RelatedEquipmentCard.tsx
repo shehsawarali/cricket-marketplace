@@ -8,7 +8,6 @@ import {
 } from "@ionic/react";
 import image from "../../orange.jpeg";
 import "./RelatedEquipmentCard.css";
-import { PRIMARY_COLOR } from "../../constants";
 
 interface RelatedEquipmentProps {
   id: string;
@@ -24,11 +23,7 @@ const RelatedEquipmentCard: React.FC<RelatedEquipmentProps> = ({
   return (
     <IonRouterLink routerLink={`/catalog/equipment/${id}`} color={"dark"}>
       <div className={"related-equipment-card ion-padding-horizontal"}>
-        <IonSlides
-          pager
-          style={{ borderRadius: "10px" }}
-          className={"ion-margin-bottom"}
-        >
+        <IonSlides className={"ion-margin-bottom"} pager>
           <IonSlide>
             <IonImg src={image} />
           </IonSlide>
@@ -38,9 +33,9 @@ const RelatedEquipmentCard: React.FC<RelatedEquipmentProps> = ({
         </IonSlides>
 
         <IonText className={"ion-margin-top"}>
-          <h4 style={{ fontWeight: "normal" }}>{name}</h4>
+          <h4>{name}</h4>
 
-          <strong style={{ color: PRIMARY_COLOR }}>${price}</strong>
+          <strong className={"text-primary"}>${price}</strong>
         </IonText>
       </div>
     </IonRouterLink>

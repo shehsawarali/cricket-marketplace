@@ -1,5 +1,9 @@
-.text-overflow{
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.text-overflow {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.no-listings-text {
+  font-size: 16px;
 }

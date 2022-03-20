@@ -95,9 +95,7 @@ const EquipmentDetail: React.FC = () => {
             </IonChip>
 
             <IonText>
-              <h2 className={"ion-no-margin"} style={{ fontWeight: "normal" }}>
-                {equipment.name}
-              </h2>
+              <h2 className={"ion-no-margin"}>{equipment.name}</h2>
               <h4 className={"ion-margin-top"}>${equipment.price}</h4>
             </IonText>
 
@@ -123,35 +121,7 @@ const EquipmentDetail: React.FC = () => {
               </IonRow>
             </div>
 
-            {/*
-          <IonCard class={"send-message-card"}>
-            <IonItem
-              lines="none"
-              className={"ion-no-padding"}
-              style={{ padding: "0 10px" }}
-            >
-              <IonIcon
-                icon={chatbubblesOutline}
-                slot="start"
-                color="tertiary"
-                style={{ fontSize: "30px" }}
-              />
-              <IonLabel style={{ fontSize: "14px", fontWeight: "bold" }}>
-                Send seller a message
-              </IonLabel>
-            </IonItem>
-
-            <IonCardContent className={"ion-no-padding"}>
-              <IonChip className={"ion-no-margin ion-margin-start"}>
-                <IonInput placeholder={"Is this still available?"} />
-              </IonChip>
-
-              <IonButton fill="solid" slot="end" className={"ion-margin-start"}>
-                Send
-              </IonButton>
-            </IonCardContent>
-          </IonCard>
-          */}
+            {/*<SendMessageCard/>*/}
           </div>
 
           <IonItem className="ion-no-padding ion-justify-content-evenly ion-margin-vertical large-icons-row">

@@ -41,7 +41,7 @@ const MyListings: React.FC = () => {
 
         {listings.length < 1 && (
           <div className={"ion-padding-top ion-text-center"}>
-            <IonText style={{ fontSize: "16px", color: "indianred" }}>
+            <IonText className={"no-listings-text text-primary"}>
               You Haven't Published Any Listings
             </IonText>
           </div>
@@ -68,9 +68,7 @@ const MyListings: React.FC = () => {
               color={"success"}
               expand={"block"}
               size={"large"}
-              style={{
-                fontSize: "18px",
-              }}
+              className={"font-18px"}
             >
               Start Selling
             </IonButton>

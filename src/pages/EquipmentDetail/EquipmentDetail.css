@@ -25,34 +25,6 @@
   margin-bottom: 10px;
 }
 
-.equipment-detail .send-message-card {
-  justify-content: center;
-  padding: 5px 10px;
-}
-
-.equipment-detail .send-message-card ion-card-content {
-  justify-content: center;
-  align-items: center;
-  padding: 0;
-  padding-top: 5px;
-}
-
-.equipment-detail .send-message-card ion-chip {
-  width: 195px;
-}
-
-.equipment-detail .send-message-card ion-button {
-  height: 35px;
-  font-size: 12px;
-  margin-top: -5px;
-  --border-radius: 5px;
-  width: 60px;
-}
-
-.equipment-detail .send-message-card ion-input {
-  --placeholder-opacity: 1;
-}
-
 .equipment-detail .equipment-overview ion-text {
   max-width: calc(100% - 35px);
   font-size: 17px;

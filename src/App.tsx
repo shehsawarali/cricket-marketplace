@@ -18,6 +18,8 @@ import Search from "./pages/Search/Search";
 import SellForm from "./pages/SellForm/SellForm";
 import UIContext from "./context/UIContext";
 
+import "./App.css";
+
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
 
@@ -80,12 +82,9 @@ const App: React.FC = () => {
             <IonTabButton tab="tab2" href="/listings">
               <IonIcon
                 icon={addCircleOutline}
-                className={"ion-no-margin"}
-                style={{
-                  fontSize: "36px",
-                }}
+                className={"ion-no-margin sell-tab-icon"}
               />
-              <IonLabel style={{ fontWeight: "bold" }}>Sell</IonLabel>
+              <IonLabel>Sell</IonLabel>
             </IonTabButton>
           </IonTabBar>
         </IonTabs>

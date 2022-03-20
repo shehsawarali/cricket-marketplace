@@ -153,7 +153,7 @@ const SellForm: React.FC = () => {
                 expand={"block"}
                 size={"large"}
                 color={"primary"}
-                className={"form-submit-button"}
+                className={"font-18px"}
               >
                 Submit
               </IonButton>

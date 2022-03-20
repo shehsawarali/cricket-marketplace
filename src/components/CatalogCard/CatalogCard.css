@@ -20,3 +20,17 @@ ion-img {
 .catalog-card ion-chip {
   margin-left: 0;
 }
+
+.catalog-card-location {
+  padding: 10px 0 5px;
+  justify-content: space-between;
+  align-items: center;
+}
+.catalog-card-location ion-icon {
+  margin-right: 10px;
+}
+
+.catalog-card-title {
+  margin: 5px 0 0;
+  font-weight: normal;
+}

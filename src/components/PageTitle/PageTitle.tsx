@@ -1,5 +1,5 @@
 import React from "react";
-import { IonHeader, IonTitle, IonToolbar, IonText } from "@ionic/react";
+import { IonText } from "@ionic/react";
 
 import "./PageTitle.css";
 

@@ -13,7 +13,6 @@ http://ionicframework.com/docs/theming/ */
 
 /** Ionic CSS Variables **/
 :root {
-  --ion-item-border-color: #e8e8e8;
   --ion-font-family: "Mulish", sans-serif;
 
   /** primary **/
@@ -89,26 +88,6 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-light-tint: #f5f6f9;
 }
 
-.mb-10 {
-  margin-bottom: 10px;
-}
-
-.text-overflow {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.swiper-pagination-bullet {
-  --bullet-background: white;
-  background-color: lightgray;
-}
-
-.swiper-pagination-bullet-active {
-  --bullet-background: white;
-  background-color: white;
-}
-
 @media (prefers-color-scheme: dark) {
   /*
    * Dark Colors
@@ -116,8 +95,6 @@ http://ionicframework.com/docs/theming/ */
    */
 
   body {
-    --ion-item-border-color: dimgray;
-
     --ion-color-primary: #f1233c;
     --ion-color-primary-rgb: 241, 35, 60;
     --ion-color-primary-contrast: #ffffff;
@@ -213,8 +190,6 @@ http://ionicframework.com/docs/theming/ */
     --ion-color-step-850: #d9d9d9;
     --ion-color-step-900: #e6e6e6;
     --ion-color-step-950: #f2f2f2;
-
-    --ion-item-background: transparent;
 
     --ion-card-background: #1c1c1d;
   }
