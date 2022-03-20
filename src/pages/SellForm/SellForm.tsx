@@ -20,7 +20,7 @@ import { categories, sellFormValidation } from "../../constants";
 import { Formik } from "formik";
 import { Camera } from "@capacitor/camera";
 import HideTabs from "../../components/HideTabs";
-import PageTitle from "../../components/PageTitle";
+import PageTitle from "../../components/PageTitle/PageTitle";
 
 interface Category {
   id: number;

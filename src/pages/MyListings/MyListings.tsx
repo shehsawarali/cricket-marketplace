@@ -11,7 +11,7 @@ import {
 } from "@ionic/react";
 import "./MyListings.css";
 import MyListingCard from "../../components/MyListingCard.tsx/MyListingCard";
-import PageTitle from "../../components/PageTitle";
+import PageTitle from "../../components/PageTitle/PageTitle";
 import { mockEquipment } from "../../constants";
 
 interface equipment {

@@ -16,7 +16,7 @@ import {
 import "./Catalog.css";
 import { locationOutline, searchOutline } from "ionicons/icons";
 import CatalogCard from "../../components/CatalogCard/CatalogCard";
-import PageTitle from "../../components/PageTitle";
+import PageTitle from "../../components/PageTitle/PageTitle";
 import { mockEquipment } from "../../constants";
 import LocationModal from "../../components/LocationModal/LocationModal";
 import { useHistory } from "react-router";
