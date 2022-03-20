@@ -119,7 +119,7 @@ const SellForm: React.FC = () => {
                   />
                 </IonItem>
 
-                <IonItem className={"sell-form-field ion-padding-bottom"}>
+                <IonItem className={"sell-form-field "}>
                   <IonLabel>Price</IonLabel>
                   <IonInput
                     inputmode={"numeric"}
@@ -129,27 +129,14 @@ const SellForm: React.FC = () => {
                   />
                 </IonItem>
 
-                <div className={"ion-padding"}>
-                  <IonButton
-                    expand={"block"}
-                    size={"large"}
-                    color={"warning"}
-                    style={{
-                      height: "100px",
-                    }}
-                    // onClick={() => attachPictures()}
-                    onClick={toggleImagesModal}
-                  >
-                    <IonIcon
-                      icon={imagesOutline}
-                      style={{ fontSize: "28px" }}
-                      className={"ion-padding-end"}
-                    />
-                    {selectedImages.length > 0
-                      ? `${selectedImages.length} selected`
-                      : "Attach pictures"}
-                  </IonButton>
-                </div>
+                <IonItem className={"sell-form-field"}>
+                  <IonLabel>Media</IonLabel>
+                  <IonInput
+                    readonly
+                    placeholder={"0 Selected"}
+                    onClick={() => toggleImagesModal()}
+                  />
+                </IonItem>
               </form>
             </IonContent>
 

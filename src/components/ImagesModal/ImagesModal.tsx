@@ -98,7 +98,7 @@ const ImagesModal: React.FC<ImageModalProps> = (props) => {
                     />
 
                     {defaultImage === img.webPath && (
-                      <div className={"centered"}>Default</div>
+                      <div className={"centered"}>Cover</div>
                     )}
                   </IonCol>
                 );
