@@ -59,22 +59,11 @@ const Search: React.FC = () => {
         >
           {(formikProps) => (
             <form onSubmit={formikProps.handleSubmit}>
-              <IonRow
-                className={"ion-align-items-center"}
-                style={{
-                  backgroundColor: "silver",
-                  margin: "15px",
-                  borderRadius: "10px",
-                  padding: "0 5px",
-                }}
-              >
-                <IonIcon
-                  icon={searchOutline}
-                  style={{ fontSize: "24px", marginRight: "5px" }}
-                />
+              <IonRow className={"ion-align-items-center search-input-row"}>
+                <IonIcon icon={searchOutline} className={"search-input-icon"} />
                 <IonInput
+                  className={"search-input"}
                   placeholder={"Search"}
-                  style={{ fontSize: "17px" }}
                   value={formikProps.values.query}
                   onInput={formikProps.handleChange}
                   clearInput

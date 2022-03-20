@@ -1,5 +1,31 @@
-.text-overflow{
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.search-input-row {
+  background-color: #e8e8e8;
+  margin: 15px;
+  border-radius: 10px;
+  padding: 0 5px;
+}
+
+.search-input-icon {
+  font-size: 24px;
+  margin-right: 5px;
+  color: gray;
+}
+
+.search-input {
+  font-size: 17px;
+  color: black;
+}
+
+@media (prefers-color-scheme: dark) {
+  .search-input-row {
+    background-color: rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.12);
+  }
+
+  .search-input-icon {
+    color: dimgray;
+  }
+
+  .search-input {
+    color: rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.87);
+  }
 }

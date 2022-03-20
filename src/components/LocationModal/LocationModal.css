@@ -26,12 +26,14 @@
 
 @media (prefers-color-scheme: dark) {
   .location-input-row {
-    background-color: silver;
+    background-color: rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.12);
   }
 
   .location-input-icon {
-    font-size: 24px;
-    margin-right: 5px;
     color: dimgray;
+  }
+
+  .location-input {
+    color: rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.87);
   }
 }
