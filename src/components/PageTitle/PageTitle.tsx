@@ -1,5 +1,5 @@
 import React from "react";
-import { IonHeader, IonTitle, IonToolbar } from "@ionic/react";
+import { IonHeader, IonTitle, IonToolbar, IonText } from "@ionic/react";
 
 import "./PageTitle.css";
 
@@ -9,13 +9,9 @@ interface PageTitleProps {
 
 const PageTitle: React.FC<PageTitleProps> = ({ title }) => {
   return (
-    <IonHeader collapse="condense">
-      <IonToolbar>
-        <IonTitle size="large" className={"page-title"}>
-          {title}
-        </IonTitle>
-      </IonToolbar>
-    </IonHeader>
+    <IonText className={"ion-no-margin"}>
+      <h1 className={"page-title ion-padding-start"}>{title}</h1>
+    </IonText>
   );
 };
 

@@ -61,16 +61,11 @@ const Catalog: React.FC = () => {
 
   return (
     <IonPage ref={catalogRef}>
-      <IonHeader>
+      <IonHeader class="ion-no-border">
         <IonToolbar>
           <IonButtons slot="end">
             <IonButton onClick={() => history.push("/search")}>
-              <IonIcon
-                color={"dark"}
-                icon={searchOutline}
-                style={{ fontSize: "20px" }}
-                slot={"end"}
-              />
+              <IonIcon color={"dark"} icon={searchOutline} slot={"end"} />
             </IonButton>
           </IonButtons>
         </IonToolbar>
@@ -79,19 +74,11 @@ const Catalog: React.FC = () => {
       <IonContent>
         <PageTitle title={"Dealer Catalog"} />
 
-        <IonRow className="ion-justify-content-between ion-padding">
-          <IonText style={{ fontWeight: "800", fontSize: "17px" }}>
-            Newly Added
-          </IonText>
-          <IonRow
-            className="ion-align-items-center catalog-location"
-            onClick={toggleModal}
-          >
-            <IonIcon
-              icon={locationOutline}
-              color={"tertiary"}
-              className="location-icon"
-            />
+        <IonRow className="ion-padding catalog-content-header">
+          <IonText className={"newly-added"}>Newly Added</IonText>
+
+          <IonRow className="catalog-header-location" onClick={toggleModal}>
+            <IonIcon icon={locationOutline} color={"tertiary"} />
             <IonLabel color={"tertiary"}>{location}</IonLabel>
           </IonRow>
         </IonRow>

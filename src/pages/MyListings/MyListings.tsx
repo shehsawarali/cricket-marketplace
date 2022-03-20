@@ -32,8 +32,8 @@ const MyListings: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar className={"ionic-padding-horizontal"}></IonToolbar>
+      <IonHeader className={"ion-no-border"}>
+        <IonToolbar />
       </IonHeader>
 
       <IonContent>

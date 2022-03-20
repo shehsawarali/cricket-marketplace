@@ -1,22 +1,26 @@
-.catalog-location{
-    /*width: 60%;*/
+.catalog-content-header {
+  font-family: "Exo2", "sans-serif";
+  justify-content: space-between;
+  padding-top: 0 !important;
 }
 
-.catalog-location ion-text{
-    text-align: right;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.catalog-content-header .newly-added {
+  font-weight: 600;
+  font-size: 18px;
 }
 
-.catalog-location ion-icon{
-    padding-right: 8px;
+.catalog-header-location {
+  align-items: center;
 }
 
-.bold{
-    fontWeight: bold;
+.catalog-header-location ion-label {
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 17px;
 }
 
-ion-slide{
-    width: 100%;
+.catalog-header-location ion-icon {
+  padding-right: 8px;
 }

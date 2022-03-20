@@ -1,3 +1,13 @@
 .page-title {
   font-family: "Exo2";
+  font-size: 36px;
+  font-weight: bold;
+  border-bottom: 1px solid #e8e8e8;
+  padding-bottom: 8px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .page-title {
+    border-color: dimgray;
+  }
 }

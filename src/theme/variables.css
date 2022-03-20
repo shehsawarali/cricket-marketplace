@@ -13,6 +13,7 @@ http://ionicframework.com/docs/theming/ */
 
 /** Ionic CSS Variables **/
 :root {
+  --ion-item-border-color: #e8e8e8;
   --ion-font-family: "Mulish", sans-serif;
 
   /** primary **/
@@ -115,6 +116,8 @@ http://ionicframework.com/docs/theming/ */
    */
 
   body {
+    --ion-item-border-color: dimgray;
+
     --ion-color-primary: #f1233c;
     --ion-color-primary-rgb: 241, 35, 60;
     --ion-color-primary-contrast: #ffffff;

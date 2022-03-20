@@ -42,7 +42,7 @@ const SellForm: React.FC = () => {
   return (
     <IonPage>
       <HideTabs />
-      <IonHeader>
+      <IonHeader className={"ion-no-border"}>
         <IonToolbar className={"ionic-padding-horizontal"}>
           <IonButtons slot="start">
             <IonBackButton color={"dark"} />
