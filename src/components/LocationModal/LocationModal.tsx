@@ -20,6 +20,8 @@ import {
 } from "ionicons/icons";
 import { Geolocation } from "@capacitor/geolocation";
 
+import "./LocationModal.css";
+
 interface LocationModalProps {
   isOpen: boolean;
   setValue: React.Dispatch<React.SetStateAction<string>>;
@@ -68,7 +70,7 @@ const LocationModal: React.FC<LocationModalProps> = (props) => {
               <IonIcon
                 icon={closeOutline}
                 color={"dark"}
-                style={{ fontSize: "36px" }}
+                className={"modal-close-icon"}
               />
             </IonButton>
           </IonButtons>
@@ -86,22 +88,11 @@ const LocationModal: React.FC<LocationModalProps> = (props) => {
       </IonHeader>
 
       <IonContent>
-        <IonRow
-          className={"ion-align-items-center"}
-          style={{
-            backgroundColor: "silver",
-            margin: "15px",
-            borderRadius: "10px",
-            padding: "0 5px",
-          }}
-        >
-          <IonIcon
-            icon={searchOutline}
-            style={{ fontSize: "24px", marginRight: "5px" }}
-          />
+        <IonRow className={"ion-align-items-center location-input-row"}>
+          <IonIcon icon={searchOutline} className={"location-input-icon"} />
           <IonInput
             placeholder={"Location"}
-            style={{ fontSize: "17px" }}
+            className={"location-input"}
             clearInput
           />
         </IonRow>
@@ -111,10 +102,8 @@ const LocationModal: React.FC<LocationModalProps> = (props) => {
             <IonItem onClick={() => select(location.name)} key={index}>
               <IonIcon slot="start" icon={locationOutline} />
 
-              <div className={"text-overflow"} style={{ padding: "10px 0" }}>
-                <IonLabel style={{ marginBottom: "10px" }}>
-                  {location.name}
-                </IonLabel>
+              <div className={"text-overflow location-card-content"}>
+                <IonLabel className={"mb-10"}>{location.name}</IonLabel>
                 <IonLabel>
                   <p>{location.country}</p>
                 </IonLabel>

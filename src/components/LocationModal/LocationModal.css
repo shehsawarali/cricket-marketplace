@@ -1,0 +1,37 @@
+.modal-close-icon {
+  font-size: 36px;
+}
+
+.location-input-row {
+  background-color: #e8e8e8;
+  margin: 15px;
+  border-radius: 10px;
+  padding: 0 5px;
+}
+
+.location-input-icon {
+  font-size: 24px;
+  margin-right: 5px;
+  color: gray;
+}
+
+.location-input {
+  font-size: 17px;
+  color: black;
+}
+
+.location-card-content {
+  padding: 10px 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  .location-input-row {
+    background-color: silver;
+  }
+
+  .location-input-icon {
+    font-size: 24px;
+    margin-right: 5px;
+    color: dimgray;
+  }
+}
