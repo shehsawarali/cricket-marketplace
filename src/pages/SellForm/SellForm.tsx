@@ -12,6 +12,7 @@ import {
   IonSelect,
   IonSelectOption,
   IonButton,
+  IonFooter,
 } from "@ionic/react";
 import "./SellForm.css";
 import { imagesOutline } from "ionicons/icons";
@@ -50,118 +51,116 @@ const SellForm: React.FC = () => {
         </IonToolbar>
       </IonHeader>
 
-      <IonContent>
-        <PageTitle title={"Sell Now"} />
+      <Formik
+        initialValues={{
+          name: null,
+          description: null,
+          price: null,
+          location: null,
+          categories: [],
+        }}
+        onSubmit={(values) => {
+          alert(JSON.stringify(values, null, 2));
+        }}
+      >
+        {(formikProps) => (
+          <>
+            <IonContent>
+              <PageTitle title={"Sell Now"} />
 
-        <Formik
-          initialValues={{
-            name: null,
-            description: null,
-            price: null,
-            location: null,
-            categories: [],
-          }}
-          onSubmit={(values) => {
-            alert(JSON.stringify(values, null, 2));
-          }}
-        >
-          {(formikProps) => (
-            <form onSubmit={formikProps.handleSubmit}>
-              <IonItem className={"sell-form-field"}>
-                <IonLabel>Name</IonLabel>
-                <IonInput
-                  placeholder={"Required"}
-                  value={formikProps.values.name}
-                  onInput={formikProps.handleChange}
-                />
-              </IonItem>
-
-              <IonItem className={"sell-form-field"}>
-                <IonLabel>Categories</IonLabel>
-                <IonSelect
-                  multiple={true}
-                  value={formikProps.values.categories}
-                  onIonChange={formikProps.handleChange}
-                >
-                  {categories.map((category: Category, index: number) => {
-                    return (
-                      <IonSelectOption value={category.name} key={index}>
-                        {category.name}
-                      </IonSelectOption>
-                    );
-                  })}
-                </IonSelect>
-              </IonItem>
-
-              <IonItem className={"sell-form-field"}>
-                <IonLabel>Location</IonLabel>
-                <IonInput
-                  placeholder={"Required"}
-                  value={formikProps.values.location}
-                  onInput={formikProps.handleChange}
-                />
-              </IonItem>
-
-              <IonItem className={"sell-form-field"}>
-                <IonLabel>Description</IonLabel>
-                <IonInput
-                  placeholder={"Required"}
-                  value={formikProps.values.description}
-                  onInput={formikProps.handleChange}
-                />
-              </IonItem>
-
-              <IonItem className={"sell-form-field ion-padding-bottom"}>
-                <IonLabel>Price</IonLabel>
-                <IonInput
-                  inputmode={"numeric"}
-                  placeholder={"Required"}
-                  value={formikProps.values.price}
-                  onInput={formikProps.handleChange}
-                />
-              </IonItem>
-
-              <div className={"ion-padding"}>
-                <IonButton
-                  expand={"full"}
-                  size={"large"}
-                  color={"warning"}
-                  style={{
-                    height: "100px",
-                  }}
-                  onClick={() => attachPictures()}
-                >
-                  <IonIcon
-                    icon={imagesOutline}
-                    style={{ fontSize: "28px" }}
-                    className={"ion-padding-end"}
+              <form onSubmit={formikProps.handleSubmit}>
+                <IonItem className={"sell-form-field"}>
+                  <IonLabel>Name</IonLabel>
+                  <IonInput
+                    placeholder={"Required"}
+                    value={formikProps.values.name}
+                    onInput={formikProps.handleChange}
                   />
-                  {selectedImages.length > 0
-                    ? `${selectedImages.length} selected`
-                    : "Attach pictures"}
-                </IonButton>
-              </div>
+                </IonItem>
 
-              <div
-                className={"ion-padding"}
-                style={{ verticalAlign: "bottom" }}
+                <IonItem className={"sell-form-field"}>
+                  <IonLabel>Categories</IonLabel>
+                  <IonSelect
+                    multiple={true}
+                    value={formikProps.values.categories}
+                    onIonChange={formikProps.handleChange}
+                  >
+                    {categories.map((category: Category, index: number) => {
+                      return (
+                        <IonSelectOption value={category.name} key={index}>
+                          {category.name}
+                        </IonSelectOption>
+                      );
+                    })}
+                  </IonSelect>
+                </IonItem>
+
+                <IonItem className={"sell-form-field"}>
+                  <IonLabel>Location</IonLabel>
+                  <IonInput
+                    placeholder={"Required"}
+                    value={formikProps.values.location}
+                    onInput={formikProps.handleChange}
+                  />
+                </IonItem>
+
+                <IonItem className={"sell-form-field"}>
+                  <IonLabel>Description</IonLabel>
+                  <IonInput
+                    placeholder={"Required"}
+                    value={formikProps.values.description}
+                    onInput={formikProps.handleChange}
+                  />
+                </IonItem>
+
+                <IonItem className={"sell-form-field ion-padding-bottom"}>
+                  <IonLabel>Price</IonLabel>
+                  <IonInput
+                    inputmode={"numeric"}
+                    placeholder={"Required"}
+                    value={formikProps.values.price}
+                    onInput={formikProps.handleChange}
+                  />
+                </IonItem>
+
+                <div className={"ion-padding"}>
+                  <IonButton
+                    expand={"block"}
+                    size={"large"}
+                    color={"warning"}
+                    style={{
+                      height: "100px",
+                    }}
+                    onClick={() => attachPictures()}
+                  >
+                    <IonIcon
+                      icon={imagesOutline}
+                      style={{ fontSize: "28px" }}
+                      className={"ion-padding-end"}
+                    />
+                    {selectedImages.length > 0
+                      ? `${selectedImages.length} selected`
+                      : "Attach pictures"}
+                  </IonButton>
+                </div>
+              </form>
+            </IonContent>
+
+            <IonFooter className={"ion-padding"}>
+              <IonButton
+                onClick={() => formikProps.handleSubmit()}
+                type={"submit"}
+                expand={"block"}
+                size={"large"}
+                color={"primary"}
+                className={"form-submit-button"}
               >
-                <IonButton
-                  type={"submit"}
-                  expand={"block"}
-                  size={"large"}
-                  color={"primary"}
-                  style={{
-                    fontSize: "18px",
-                  }}
-                >
-                  Submit
-                </IonButton>
-              </div>
-            </form>
-          )}
-        </Formik>
-      </IonContent>
+                Submit
+              </IonButton>
+            </IonFooter>
+          </>
+        )}
+      </Formik>
     </IonPage>
   );
 };
