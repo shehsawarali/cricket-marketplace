@@ -16,12 +16,14 @@ import {
 } from "@ionic/react";
 import "./SellForm.css";
 import { imagesOutline } from "ionicons/icons";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { categories, sellFormValidation } from "../../constants";
 import { Formik } from "formik";
 import { Camera } from "@capacitor/camera";
 import HideTabs from "../../components/HideTabs";
 import PageTitle from "../../components/PageTitle/PageTitle";
+import LocationModal from "../../components/LocationModal/LocationModal";
+import ImagesModal from "../../components/ImagesModal/ImagesModal";
 
 interface Category {
   id: number;
@@ -30,18 +32,21 @@ interface Category {
 
 const SellForm: React.FC = () => {
   const [selectedImages, setSelectedImages] = useState<Array<object>>([]);
+  const pageRef = React.useRef<any>(null);
 
-  const attachPictures = async () => {
-    const cameraResultImg = await Camera.pickImages({
-      quality: 90,
-      correctOrientation: true,
-    });
+  const [locationModal, setLocationModal] = useState<boolean>(false);
+  const [imagesModal, setImagesModal] = useState<boolean>(false);
 
-    setSelectedImages(cameraResultImg.photos);
+  const toggleLocationModal = () => {
+    setLocationModal((currentState) => !currentState);
+  };
+
+  const toggleImagesModal = () => {
+    setImagesModal((currentState) => !currentState);
   };
 
   return (
-    <IonPage>
+    <IonPage ref={pageRef}>
       <HideTabs />
       <IonHeader className={"ion-no-border"}>
         <IonToolbar className={"ionic-padding-horizontal"}>
@@ -98,9 +103,10 @@ const SellForm: React.FC = () => {
                 <IonItem className={"sell-form-field"}>
                   <IonLabel>Location</IonLabel>
                   <IonInput
+                    readonly
                     placeholder={"Required"}
                     value={formikProps.values.location}
-                    onInput={formikProps.handleChange}
+                    onClick={toggleLocationModal}
                   />
                 </IonItem>
 
@@ -131,7 +137,8 @@ const SellForm: React.FC = () => {
                     style={{
                       height: "100px",
                     }}
-                    onClick={() => attachPictures()}
+                    // onClick={() => attachPictures()}
+                    onClick={toggleImagesModal}
                   >
                     <IonIcon
                       icon={imagesOutline}
@@ -158,6 +165,21 @@ const SellForm: React.FC = () => {
                 Submit
               </IonButton>
             </IonFooter>
+
+            <LocationModal
+              isOpen={locationModal}
+              setValue={(value) =>
+                formikProps.setFieldValue("location", value, true)
+              }
+              close={toggleLocationModal}
+            />
+
+            <ImagesModal
+              isOpen={imagesModal}
+              setValue={setSelectedImages}
+              close={toggleImagesModal}
+              parentRef={pageRef.current}
+            />
           </>
         )}
       </Formik>

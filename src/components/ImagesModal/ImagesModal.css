@@ -1,0 +1,56 @@
+.modal-close-icon {
+  font-size: 36px;
+}
+
+.preview-image {
+  height: 120px;
+  object-fit: cover;
+  border: 1px solid transparent;
+}
+
+.preview-image,
+.preview-image::part(image) {
+  border-radius: 10px;
+}
+
+.selected {
+  border-color: var(--ion-color-primary) !important;
+  border-style: dashed;
+}
+.selected::part(image) {
+  filter: brightness(30%);
+}
+
+.preview-image-wrapper {
+  position: relative;
+  text-align: center;
+  font-size: 14px;
+}
+
+.centered {
+  position: absolute;
+  top: calc(100% - 20px);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+
+  border-radius: 10px;
+  color: whitesmoke;
+  font-weight: bold;
+  opacity: 0.8;
+}
+
+.preview-heading {
+  font-family: "Exo2", "sans-serif";
+}
+
+.media-section-divider {
+  height: 10px;
+  background-color: whitesmoke;
+}
+
+@media (prefers-color-scheme: dark) {
+  .media-section-divider {
+    background-color: rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.12);
+  }
+}
