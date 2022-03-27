@@ -2,11 +2,11 @@ import * as yup from "yup";
 
 export const categories = [
   {
-    id: 1,
+    id: "1",
     name: "Refurbished (Up to Spec)",
   },
   {
-    id: 2,
+    id: "2",
     name: "Cat 2",
   },
 ];

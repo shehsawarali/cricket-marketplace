@@ -20,15 +20,7 @@ import PageTitle from "../../components/PageTitle/PageTitle";
 import { mockEquipment } from "../../constants";
 import LocationModal from "../../components/LocationModal/LocationModal";
 import { useHistory } from "react-router";
-
-interface equipment {
-  id: string;
-  name: string;
-  price: string;
-  location: string;
-  distance: string;
-  categories: Array<string>;
-}
+import { Equipment } from "../../types";
 
 const Catalog: React.FC = () => {
   const history = useHistory();
@@ -37,7 +29,7 @@ const Catalog: React.FC = () => {
 
   const [location, setLocation] = useState<string>("Calgary");
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [catalogData, setCatalogData] = useState<Array<equipment>>([
+  const [catalogData, setCatalogData] = useState<Array<Equipment>>([
     mockEquipment,
     mockEquipment,
     mockEquipment,
@@ -85,7 +77,7 @@ const Catalog: React.FC = () => {
 
         {catalogData.length > 0 && (
           <>
-            {catalogData.map((equipment: equipment, index: any) => {
+            {catalogData.map((equipment: Equipment, index: any) => {
               return (
                 <CatalogCard
                   key={index}

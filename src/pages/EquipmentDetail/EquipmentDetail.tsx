@@ -36,22 +36,14 @@ import { useParams } from "react-router";
 import HideTabs from "../../components/HideTabs";
 import { mockEquipment, mockPhoneNumber } from "../../constants";
 import { Share } from "@capacitor/share";
+import { Equipment } from "../../types/Equipment.model";
 
 const images = [image, image]; // Hardcoded for dev
 const phoneNumber = mockPhoneNumber; // Hardcoded for dev
 
-interface equipment {
-  id: string;
-  name: string;
-  price: string;
-  location: string;
-  distance: string;
-  categories: Array<string>;
-}
-
 const EquipmentDetail: React.FC = () => {
   const id = useParams();
-  const [equipment, setEquipment] = useState<equipment | null>(null);
+  const [equipment, setEquipment] = useState<Equipment | null>(null);
 
   useEffect(() => {
     setEquipment(mockEquipment);

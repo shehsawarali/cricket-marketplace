@@ -15,20 +15,14 @@ import {
   IonFooter,
 } from "@ionic/react";
 import "./SellForm.css";
-import { imagesOutline } from "ionicons/icons";
 import React, { useRef, useState } from "react";
 import { categories, sellFormValidation } from "../../constants";
 import { Formik } from "formik";
-import { Camera } from "@capacitor/camera";
 import HideTabs from "../../components/HideTabs";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import LocationModal from "../../components/LocationModal/LocationModal";
 import ImagesModal from "../../components/ImagesModal/ImagesModal";
-
-interface Category {
-  id: number;
-  name: string;
-}
+import { Category } from "../../types";
 
 const SellForm: React.FC = () => {
   const [selectedImages, setSelectedImages] = useState<Array<object>>([]);

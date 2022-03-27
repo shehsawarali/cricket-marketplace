@@ -13,18 +13,10 @@ import "./MyListings.css";
 import MyListingCard from "../../components/MyListingCard.tsx/MyListingCard";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import { mockEquipment } from "../../constants";
-
-interface equipment {
-  id: string;
-  name: string;
-  price: string;
-  location: string;
-  distance: string;
-  categories: Array<string>;
-}
+import { Equipment } from "../../types/Equipment.model";
 
 const MyListings: React.FC = () => {
-  const [listings, setListings] = useState<Array<equipment>>([]);
+  const [listings, setListings] = useState<Array<Equipment>>([]);
 
   useEffect(() => {
     setListings([mockEquipment]);

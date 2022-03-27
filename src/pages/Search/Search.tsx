@@ -17,18 +17,10 @@ import HideTabs from "../../components/HideTabs";
 import { searchOutline } from "ionicons/icons";
 import CatalogCard from "../../components/CatalogCard/CatalogCard";
 import { Formik, FormikValues } from "formik";
-
-interface equipment {
-  id: string;
-  name: string;
-  price: string;
-  location: string;
-  distance: string;
-  categories: Array<string>;
-}
+import { Equipment } from "../../types";
 
 const Search: React.FC = () => {
-  const [results, setResults] = useState<Array<equipment>>([]);
+  const [results, setResults] = useState<Array<Equipment>>([]);
 
   useEffect(() => {
     setResults([mockEquipment, mockEquipment]);
@@ -74,7 +66,7 @@ const Search: React.FC = () => {
         </Formik>
 
         <div id={"results"}>
-          {results.map((result: equipment, index: any) => (
+          {results.map((result: Equipment, index: any) => (
             <CatalogCard
               key={index}
               id={result.id}
