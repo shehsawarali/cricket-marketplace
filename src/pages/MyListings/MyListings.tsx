@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import {
   IonContent,
@@ -8,19 +8,22 @@ import {
   IonText,
   IonButton,
   IonRouterLink,
+  useIonViewWillEnter,
 } from "@ionic/react";
 import "./MyListings.css";
 import MyListingCard from "../../components/MyListingCard.tsx/MyListingCard";
 import PageTitle from "../../components/PageTitle/PageTitle";
-import { mockEquipment } from "../../constants";
-import { Equipment } from "../../types/Equipment.model";
+import { EquipmentListing } from "../../types/Equipment.model";
+import { getMyListings } from "../../services/equipment";
 
 const MyListings: React.FC = () => {
-  const [listings, setListings] = useState<Array<Equipment>>([]);
+  const [listings, setListings] = useState<Array<EquipmentListing>>([]);
 
-  useEffect(() => {
-    setListings([mockEquipment]);
-  }, []);
+  useIonViewWillEnter(() => {
+    getMyListings().then((data) => {
+      setListings(data.equipment);
+    });
+  });
 
   return (
     <IonPage>
@@ -42,14 +45,7 @@ const MyListings: React.FC = () => {
         {listings.length > 0 && (
           <>
             {listings.map((listing: any, index: any) => {
-              return (
-                <MyListingCard
-                  key={index}
-                  id={listing.id}
-                  name={listing.name}
-                  price={listing.price}
-                />
-              );
+              return <MyListingCard key={index} equipment={listing} />;
             })}
           </>
         )}

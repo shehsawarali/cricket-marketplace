@@ -18,3 +18,11 @@ export interface EquipmentDetail {
   condition?: string;
   phone: string;
 }
+
+export interface EquipmentListing {
+  id: number;
+  images: Array<string>;
+  isSold: boolean;
+  price: number;
+  title: string;
+}

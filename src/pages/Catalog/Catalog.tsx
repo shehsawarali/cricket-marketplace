@@ -29,20 +29,39 @@ const Catalog: React.FC = () => {
   const [location, setLocation] = useState<string>("Calgary");
   const [showModal, setShowModal] = useState<boolean>(false);
 
-  const [page, setPage] = useState<number>(0);
+  const [page, setPage] = useState<number>(1);
   const [catalogData, setCatalogData] = useState<Array<EquipmentDetail>>([]);
 
   useEffect(() => {
-    getCatalog().then((data) => {
-      setCatalogData(data.equipment);
+    getCatalog(page).then((data) => {
+      if (data.equipment.length) {
+        appendCatalog(data.equipment);
+        nextPage();
+      }
     });
   }, []);
 
   const loadData = () => {
     // Subsequent fetch API for infinite scroll
-    if (scrollRef.current) {
-      scrollRef.current.complete();
-    }
+
+    getCatalog(page).then((data) => {
+      if (data.equipment.length) {
+        appendCatalog(data.equipment);
+        nextPage();
+      }
+
+      if (scrollRef.current) {
+        scrollRef.current.complete();
+      }
+    });
+  };
+
+  const appendCatalog = (newData: any) => {
+    setCatalogData((currentCatalogData) => [...currentCatalogData, ...newData]);
+  };
+
+  const nextPage = () => {
+    setPage((currentPage) => currentPage + 1);
   };
 
   const toggleModal = () => {

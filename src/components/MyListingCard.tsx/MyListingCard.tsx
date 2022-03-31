@@ -7,26 +7,32 @@ import {
   IonThumbnail,
 } from "@ionic/react";
 import image from "../../orange.jpeg";
+import { EquipmentListing } from "../../types";
 
 interface MyListingCardProps {
   id: number;
-  name: string;
+  title: string;
   price: string;
   image?: string;
 }
 
-const MyListingCard: React.FC<MyListingCardProps> = ({ id, name, price }) => {
+const MyListingCard: React.FC<{ equipment: EquipmentListing }> = ({
+  equipment,
+}) => {
   return (
-    <IonRouterLink routerLink={`/catalog/equipment/${id}`} color={"dark"}>
+    <IonRouterLink
+      routerLink={`/catalog/equipment/${equipment.id}`}
+      color={"dark"}
+    >
       <IonItem>
         <IonThumbnail slot="start">
           <img src={image} />
         </IonThumbnail>
 
         <IonRow className={"text-overflow"}>
-          <IonLabel>{name}</IonLabel>
+          <IonLabel>{equipment.title}</IonLabel>
           <IonLabel>
-            <p>${price}</p>
+            <p>${equipment.price}</p>
           </IonLabel>
         </IonRow>
       </IonItem>
