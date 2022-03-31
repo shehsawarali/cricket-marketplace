@@ -26,6 +26,7 @@ const Catalog: React.FC = () => {
   const history = useHistory();
   const catalogRef = React.useRef<any>(null);
   const scrollRef = useRef<HTMLIonInfiniteScrollElement>(null);
+  const [scrollDisabled, setScrollDisabled] = useState(false);
   const [location, setLocation] = useState<string>("Calgary");
   const [showModal, setShowModal] = useState<boolean>(false);
 
@@ -33,34 +34,40 @@ const Catalog: React.FC = () => {
   const [catalogData, setCatalogData] = useState<Array<EquipmentDetail>>([]);
 
   useEffect(() => {
-    getCatalog(page).then((data) => {
-      if (data.equipment.length) {
-        appendCatalog(data.equipment);
-        nextPage();
-      }
-    });
+    loadCatalogData();
   }, []);
 
-  const loadData = () => {
-    // Subsequent fetch API for infinite scroll
-
-    getCatalog(page).then((data) => {
-      if (data.equipment.length) {
-        appendCatalog(data.equipment);
-        nextPage();
-      }
-
+  const loadMoreData = () => {
+    const callback = () => {
       if (scrollRef.current) {
         scrollRef.current.complete();
       }
+    };
+
+    loadCatalogData(callback);
+  };
+
+  const loadCatalogData = (callback?: () => void) => {
+    getCatalog(page).then((data) => {
+      if (data.equipment.length) {
+        appendCatalog(data.equipment);
+      }
+
+      if (page <= data.totalPage) {
+        incrementPage();
+      } else {
+        setScrollDisabled(true);
+      }
+
+      if (callback) callback();
     });
   };
 
-  const appendCatalog = (newData: any) => {
+  const appendCatalog = (newData: Array<EquipmentDetail>) => {
     setCatalogData((currentCatalogData) => [...currentCatalogData, ...newData]);
   };
 
-  const nextPage = () => {
+  const incrementPage = () => {
     setPage((currentPage) => currentPage + 1);
   };
 
@@ -101,7 +108,8 @@ const Catalog: React.FC = () => {
             <IonInfiniteScroll
               threshold="50px"
               ref={scrollRef}
-              onIonInfinite={loadData}
+              onIonInfinite={loadMoreData}
+              disabled={scrollDisabled}
             >
               <IonInfiniteScrollContent
                 loadingSpinner="bubbles"
