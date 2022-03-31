@@ -17,31 +17,29 @@ import "./Catalog.css";
 import { locationOutline, searchOutline } from "ionicons/icons";
 import CatalogCard from "../../components/CatalogCard/CatalogCard";
 import PageTitle from "../../components/PageTitle/PageTitle";
-import { mockEquipment } from "../../constants";
 import LocationModal from "../../components/LocationModal/LocationModal";
 import { useHistory } from "react-router";
-import { Equipment } from "../../types";
+import { EquipmentDetail } from "../../types";
+import { getCatalog } from "../../services/equipment";
 
 const Catalog: React.FC = () => {
   const history = useHistory();
   const catalogRef = React.useRef<any>(null);
   const scrollRef = useRef<HTMLIonInfiniteScrollElement>(null);
-
   const [location, setLocation] = useState<string>("Calgary");
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [catalogData, setCatalogData] = useState<Array<Equipment>>([
-    mockEquipment,
-    mockEquipment,
-    mockEquipment,
-  ]);
+
+  const [page, setPage] = useState<number>(0);
+  const [catalogData, setCatalogData] = useState<Array<EquipmentDetail>>([]);
 
   useEffect(() => {
-    // Add initial API load here
+    getCatalog().then((data) => {
+      setCatalogData(data.equipment);
+    });
   }, []);
 
   const loadData = () => {
     // Subsequent fetch API for infinite scroll
-
     if (scrollRef.current) {
       scrollRef.current.complete();
     }
@@ -77,18 +75,8 @@ const Catalog: React.FC = () => {
 
         {catalogData.length > 0 && (
           <>
-            {catalogData.map((equipment: Equipment, index: any) => {
-              return (
-                <CatalogCard
-                  key={index}
-                  id={equipment.id}
-                  name={equipment.name}
-                  price={equipment.price}
-                  location={equipment.location}
-                  distance={equipment.distance}
-                  categories={equipment.categories}
-                />
-              );
+            {catalogData.map((equipment: EquipmentDetail, index: any) => {
+              return <CatalogCard key={index} equipment={equipment} />;
             })}
 
             <IonInfiniteScroll

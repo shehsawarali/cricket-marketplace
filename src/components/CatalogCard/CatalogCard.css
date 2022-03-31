@@ -25,6 +25,7 @@ ion-img {
   padding: 10px 0 5px;
   justify-content: space-between;
   align-items: center;
+  text-transform: capitalize;
 }
 .catalog-card-location ion-icon {
   margin-right: 10px;

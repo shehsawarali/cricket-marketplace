@@ -66,17 +66,17 @@ const Search: React.FC = () => {
         </Formik>
 
         <div id={"results"}>
-          {results.map((result: Equipment, index: any) => (
-            <CatalogCard
-              key={index}
-              id={result.id}
-              name={result.name}
-              price={result.price}
-              location={result.location}
-              distance={result.distance}
-              categories={result.categories}
-            />
-          ))}
+          {/*{results.map((result: Equipment, index: any) => (*/}
+          {/*  <CatalogCard*/}
+          {/*    key={index}*/}
+          {/*    id={result.id}*/}
+          {/*    title={result.title}*/}
+          {/*    price={result.price}*/}
+          {/*    location={result.location}*/}
+          {/*    distance={result.distance}*/}
+          {/*    categories={result.categories}*/}
+          {/*  />*/}
+          {/*))}*/}
         </div>
       </IonContent>
     </IonPage>

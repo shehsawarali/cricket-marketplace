@@ -19,6 +19,7 @@ import {
   IonItem,
   IonButton,
   IonList,
+  useIonViewWillEnter,
 } from "@ionic/react";
 import {
   chatbubbleEllipsesOutline,
@@ -37,17 +38,22 @@ import HideTabs from "../../components/HideTabs";
 import { mockEquipment, mockPhoneNumber } from "../../constants";
 import { Share } from "@capacitor/share";
 import { Equipment } from "../../types/Equipment.model";
+import { getEquipmentDetail } from "../../services/equipment";
 
 const images = [image, image]; // Hardcoded for dev
 const phoneNumber = mockPhoneNumber; // Hardcoded for dev
 
 const EquipmentDetail: React.FC = () => {
-  const id = useParams();
+  const { id } = useParams<{ id: string }>();
   const [equipment, setEquipment] = useState<Equipment | null>(null);
 
   useEffect(() => {
     setEquipment(mockEquipment);
+    const data = getEquipmentDetail(id);
+    console.log(data);
   }, []);
+
+  useIonViewWillEnter(() => {});
 
   const socialShare = async () => {
     await Share.share({
@@ -65,7 +71,7 @@ const EquipmentDetail: React.FC = () => {
           <IonButtons slot="start">
             <IonBackButton color={"dark"} />
           </IonButtons>
-          <IonTitle>{equipment?.name}</IonTitle>
+          <IonTitle>{equipment?.title}</IonTitle>
         </IonToolbar>
       </IonHeader>
 
@@ -87,7 +93,7 @@ const EquipmentDetail: React.FC = () => {
             </IonChip>
 
             <IonText>
-              <h2 className={"ion-no-margin"}>{equipment.name}</h2>
+              <h2 className={"ion-no-margin"}>{equipment.title}</h2>
               <h4 className={"ion-margin-top"}>${equipment.price}</h4>
             </IonText>
 
@@ -213,7 +219,7 @@ const EquipmentDetail: React.FC = () => {
 
             <RelatedEquipmentCard
               id={equipment.id}
-              name={equipment.name}
+              title={equipment.title}
               price={equipment.price}
             />
           </IonText>

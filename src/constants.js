@@ -20,8 +20,8 @@ export const sellFormValidation = yup.object({
 });
 
 export const mockEquipment = {
-  id: "1",
-  name: "Used Marathon WS 5043-830 Open End Auto-Tie Horizontal Baler",
+  id: 1,
+  title: "Used Marathon WS 5043-830 Open End Auto-Tie Horizontal Baler",
   price: "65,000.00",
   location: "Salt Lake City, UT, US",
   distance: "719",

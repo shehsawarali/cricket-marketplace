@@ -10,16 +10,17 @@ import {
   IonText,
   IonRouterLink,
 } from "@ionic/react";
-import image from "../../orange.jpeg";
-import "./CatalogCard.css";
 import { locationOutline, chatbubblesOutline } from "ionicons/icons";
-import { mockPhoneNumber } from "../../constants";
-import { Equipment } from "../../types";
 
-const phoneNumber = mockPhoneNumber;
+import "./CatalogCard.css";
+import { EquipmentDetail } from "../../types";
+import image from "../../orange.jpeg";
+
 const images = [image, image];
 
-const CatalogCard: React.FC<Equipment> = (equipment) => {
+const CatalogCard: React.FC<{ equipment: EquipmentDetail }> = ({
+  equipment,
+}) => {
   return (
     <div className={"catalog-card ion-padding-horizontal"}>
       <IonRouterLink
@@ -45,19 +46,25 @@ const CatalogCard: React.FC<Equipment> = (equipment) => {
         </IonText>
       </IonRow>
 
-      <IonChip>
-        <IonLabel>Refurbished (Up To Spec)</IonLabel>
-      </IonChip>
+      {equipment.condition && (
+        <IonChip>
+          <IonLabel className={"ion-text-capitalize"}>
+            Refurbished (Up To Spec)
+          </IonLabel>
+        </IonChip>
+      )}
 
       <IonText>
-        <h4 className={"catalog-card-title"}>{equipment.name}</h4>
+        <h4 className={"catalog-card-title ion-text-capitalize"}>
+          {equipment.title}
+        </h4>
       </IonText>
 
       <IonRow className={"ion-justify-content-between ion-align-items-center"}>
         <strong className={"text-primary"}>${equipment.price}</strong>
 
         <a
-          href={`https://wa.me/${phoneNumber}`}
+          href={`https://wa.me/${equipment.phone}`}
           className={"text-decoration-none"}
         >
           <IonChip color={"success"}>

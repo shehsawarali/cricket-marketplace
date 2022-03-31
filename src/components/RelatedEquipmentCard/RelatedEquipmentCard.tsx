@@ -10,14 +10,14 @@ import image from "../../orange.jpeg";
 import "./RelatedEquipmentCard.css";
 
 interface RelatedEquipmentProps {
-  id: string;
-  name: string;
+  id: number;
+  title: string;
   price: string;
 }
 
 const RelatedEquipmentCard: React.FC<RelatedEquipmentProps> = ({
   id,
-  name,
+  title,
   price,
 }) => {
   return (
@@ -33,7 +33,7 @@ const RelatedEquipmentCard: React.FC<RelatedEquipmentProps> = ({
         </IonSlides>
 
         <IonText className={"ion-margin-top"}>
-          <h4>{name}</h4>
+          <h4>{title}</h4>
 
           <strong className={"text-primary"}>${price}</strong>
         </IonText>
