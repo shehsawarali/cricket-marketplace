@@ -3,7 +3,7 @@ import {
   IonItem,
   IonLabel,
   IonRouterLink,
-  IonRow,
+  IonCol,
   IonThumbnail,
 } from "@ionic/react";
 import image from "../../orange.jpeg";
@@ -29,12 +29,12 @@ const MyListingCard: React.FC<{ equipment: EquipmentListing }> = ({
           <img src={image} />
         </IonThumbnail>
 
-        <IonRow className={"text-overflow"}>
+        <IonCol className={"text-overflow"}>
           <IonLabel>{equipment.title}</IonLabel>
           <IonLabel>
             <p>${equipment.price}</p>
           </IonLabel>
-        </IonRow>
+        </IonCol>
       </IonItem>
     </IonRouterLink>
   );
