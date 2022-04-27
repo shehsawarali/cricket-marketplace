@@ -26,6 +26,9 @@ export const mockEquipment = {
   location: "Salt Lake City, UT, US",
   distance: "719",
   categories: ["Refurbished (Up To Spec)"],
+  condition: "Refurbished (Up to Spec)",
+  phone: "1234567819",
+  images: [],
 };
 
 export const mockTechnicalData = {

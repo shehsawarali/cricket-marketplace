@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import {
   IonContent,
   IonPage,
@@ -12,6 +12,8 @@ import {
   IonInfiniteScrollContent,
   IonButton,
   IonButtons,
+  IonSpinner,
+  useIonViewDidEnter,
 } from "@ionic/react";
 import "./Catalog.css";
 import { locationOutline, searchOutline } from "ionicons/icons";
@@ -19,7 +21,8 @@ import CatalogCard from "../../components/CatalogCard/CatalogCard";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import LocationModal from "../../components/LocationModal/LocationModal";
 import { useHistory } from "react-router";
-import { EquipmentDetail } from "../../types";
+import { Equipment } from "../../types";
+import Location from "../../types/Location.model";
 import { getCatalog } from "../../services/equipment";
 
 const Catalog: React.FC = () => {
@@ -27,14 +30,16 @@ const Catalog: React.FC = () => {
   const catalogRef = React.useRef<any>(null);
   const scrollRef = useRef<HTMLIonInfiniteScrollElement>(null);
   const [scrollDisabled, setScrollDisabled] = useState(false);
-  const [location, setLocation] = useState<string>("Calgary");
+  const [location, setLocation] = useState<Location | null>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
-
+  const [pageLoading, setPageLoading] = useState(true);
   const [page, setPage] = useState<number>(1);
-  const [catalogData, setCatalogData] = useState<Array<EquipmentDetail>>([]);
+  const [catalogData, setCatalogData] = useState<Array<Equipment>>([]);
 
-  useEffect(() => {
-    loadCatalogData();
+  useIonViewDidEnter(() => {
+    loadCatalogData(() => {
+      setPageLoading(false);
+    });
   }, []);
 
   const loadMoreData = () => {
@@ -50,25 +55,20 @@ const Catalog: React.FC = () => {
   const loadCatalogData = (callback?: () => void) => {
     getCatalog(page).then((data) => {
       if (data.equipment.length) {
-        appendCatalog(data.equipment);
+        setCatalogData((currentCatalogData) => [
+          ...currentCatalogData,
+          ...data.equipment,
+        ]);
       }
 
-      if (page <= data.totalPage) {
-        incrementPage();
+      if (page < data.totalPage) {
+        setPage((currentPage) => currentPage + 1);
       } else {
         setScrollDisabled(true);
       }
 
       if (callback) callback();
     });
-  };
-
-  const appendCatalog = (newData: Array<EquipmentDetail>) => {
-    setCatalogData((currentCatalogData) => [...currentCatalogData, ...newData]);
-  };
-
-  const incrementPage = () => {
-    setPage((currentPage) => currentPage + 1);
   };
 
   const toggleModal = () => {
@@ -95,13 +95,22 @@ const Catalog: React.FC = () => {
 
           <IonRow className="catalog-header-location" onClick={toggleModal}>
             <IonIcon icon={locationOutline} color={"tertiary"} />
-            <IonLabel color={"tertiary"}>{location}</IonLabel>
+
+            <IonLabel color={"tertiary"}>
+              {location?.structured_formatting.main_text || "Choose Location"}
+            </IonLabel>
           </IonRow>
         </IonRow>
 
-        {catalogData.length > 0 && (
+        {pageLoading && (
+          <div className={"ion-margin-top ion-text-center"}>
+            <IonSpinner name={"crescent"} />
+          </div>
+        )}
+
+        {!pageLoading && (
           <>
-            {catalogData.map((equipment: EquipmentDetail, index: any) => {
+            {catalogData.map((equipment: Equipment, index: any) => {
               return <CatalogCard key={index} equipment={equipment} />;
             })}
 
@@ -113,7 +122,7 @@ const Catalog: React.FC = () => {
             >
               <IonInfiniteScrollContent
                 loadingSpinner="bubbles"
-                loadingText="Loading more data..."
+                loadingText="Loading"
               ></IonInfiniteScrollContent>
             </IonInfiniteScroll>
           </>

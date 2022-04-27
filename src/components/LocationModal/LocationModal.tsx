@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import {
   IonButton,
   IonButtons,
@@ -21,33 +21,21 @@ import {
 import { Geolocation } from "@capacitor/geolocation";
 
 import "./LocationModal.css";
+import { getLocationPredictions } from "../../services/equipment";
+import Location from "../../types/Location.model";
 
 interface LocationModalProps {
   isOpen: boolean;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
+  setValue: React.Dispatch<React.SetStateAction<Location | null>>;
   close: () => void;
   parentRef?: HTMLDivElement;
 }
 
-interface location {
-  name: string;
-  country: string;
-}
-
-const locations = [
-  {
-    name: "Evansville",
-    country: "IN, USA",
-  },
-  {
-    name: "Lahore",
-    country: "Pakistan",
-  },
-];
-
 const LocationModal: React.FC<LocationModalProps> = (props) => {
-  const select = (name: string) => {
-    props.setValue(name);
+  const [locations, setLocations] = useState([]);
+
+  const select = (location: Location) => {
+    props.setValue(location);
     props.close();
   };
 
@@ -55,6 +43,14 @@ const LocationModal: React.FC<LocationModalProps> = (props) => {
     const GeoLocationPosition = await Geolocation.getCurrentPosition();
 
     // Use GeoLocationPosition to get city
+  };
+
+  const onChange = (e: any) => {
+    const query = e.target.value;
+
+    getLocationPredictions(query).then((response) => {
+      setLocations(response.predictions);
+    });
   };
 
   return (
@@ -94,18 +90,21 @@ const LocationModal: React.FC<LocationModalProps> = (props) => {
             placeholder={"Location"}
             className={"location-input"}
             clearInput
+            onIonChange={onChange}
           />
         </IonRow>
 
         <div id={"results"}>
-          {locations.map((location: location, index: any) => (
-            <IonItem onClick={() => select(location.name)} key={index}>
+          {locations.map((location: Location, index: any) => (
+            <IonItem onClick={() => select(location)} key={index}>
               <IonIcon slot="start" icon={locationOutline} />
 
               <div className={"text-overflow location-card-content"}>
-                <IonLabel className={"mb-10"}>{location.name}</IonLabel>
+                <IonLabel className={"mb-10"}>
+                  {location.structured_formatting.main_text}
+                </IonLabel>
                 <IonLabel>
-                  <p>{location.country}</p>
+                  <p>{location.structured_formatting.secondary_text}</p>
                 </IonLabel>
               </div>
             </IonItem>

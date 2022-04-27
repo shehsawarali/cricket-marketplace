@@ -13,14 +13,12 @@ import {
 import { locationOutline, chatbubblesOutline } from "ionicons/icons";
 
 import "./CatalogCard.css";
-import { EquipmentDetail } from "../../types";
+import { Equipment } from "../../types";
 import image from "../../orange.jpeg";
 
 const images = [image, image];
 
-const CatalogCard: React.FC<{ equipment: EquipmentDetail }> = ({
-  equipment,
-}) => {
+const CatalogCard: React.FC<{ equipment: Equipment }> = ({ equipment }) => {
   return (
     <div className={"catalog-card ion-padding-horizontal"}>
       <IonRouterLink
