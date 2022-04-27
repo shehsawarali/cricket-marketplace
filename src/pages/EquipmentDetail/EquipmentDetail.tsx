@@ -19,7 +19,7 @@ import {
   IonItem,
   IonButton,
   IonList,
-  useIonViewWillEnter,
+  IonSpinner,
 } from "@ionic/react";
 import {
   chatbubbleEllipsesOutline,
@@ -29,31 +29,27 @@ import {
   infiniteOutline,
   gitCompareOutline,
 } from "ionicons/icons";
-import image from "../../orange.jpeg";
+import defaultImage from "../../orange.jpeg";
 import "./EquipmentDetail.css";
 import TechnicalDataField from "../../components/TechnicalDataField/TechnicalDataField";
 import RelatedEquipmentCard from "../../components/RelatedEquipmentCard/RelatedEquipmentCard";
 import { useParams } from "react-router";
 import HideTabs from "../../components/HideTabs";
-import { mockEquipment, mockPhoneNumber } from "../../constants";
 import { Share } from "@capacitor/share";
 import { Equipment } from "../../types/Equipment.model";
 import { getEquipmentDetail } from "../../services/equipment";
 
-const images = [image, image]; // Hardcoded for dev
-const phoneNumber = mockPhoneNumber; // Hardcoded for dev
-
 const EquipmentDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [equipment, setEquipment] = useState<Equipment | null>(null);
+  const [pageLoading, setPageLoading] = useState(true);
 
   useEffect(() => {
-    setEquipment(mockEquipment);
-    const data = getEquipmentDetail(id);
-    console.log(data);
+    getEquipmentDetail(id).then((response) => {
+      setEquipment(response.data);
+      setPageLoading(false);
+    });
   }, []);
-
-  useIonViewWillEnter(() => {});
 
   const socialShare = async () => {
     await Share.share({
@@ -63,6 +59,14 @@ const EquipmentDetail: React.FC = () => {
     });
   };
 
+  if (pageLoading) {
+    return (
+      <div className={"ion-margin-top ion-text-center"}>
+        <IonSpinner name={"crescent"} />
+      </div>
+    );
+  }
+
   return (
     <IonPage className={"equipment-detail"}>
       <HideTabs />
@@ -71,26 +75,34 @@ const EquipmentDetail: React.FC = () => {
           <IonButtons slot="start">
             <IonBackButton color={"dark"} />
           </IonButtons>
-          <IonTitle>{equipment?.title}</IonTitle>
+          <IonTitle className={"ion-text-capitalize"}>
+            {equipment?.title}
+          </IonTitle>
         </IonToolbar>
       </IonHeader>
 
       {equipment && (
         <IonContent fullscreen>
-          {images.length > 0 && (
-            <IonSlides pager color={"dark"}>
-              {images.map((image: any, index: any) => (
-                <IonSlide key={index}>
-                  <IonImg src={image} />
-                </IonSlide>
-              ))}
-            </IonSlides>
-          )}
+          <IonSlides pager color={"dark"}>
+            {equipment.images?.map((image: any, index: any) => (
+              <IonSlide key={index}>
+                <IonImg src={image.path} />
+              </IonSlide>
+            ))}
+
+            {!equipment.images?.length && (
+              <IonSlide>
+                <IonImg src={defaultImage} />
+              </IonSlide>
+            )}
+          </IonSlides>
 
           <div className={"ion-padding-horizontal"}>
-            <IonChip className={"ion-no-margin ion-margin-vertical"}>
-              <IonLabel>Refurbished (Up To Spec)</IonLabel>
-            </IonChip>
+            {equipment.condition && (
+              <IonChip className={"ion-no-margin ion-margin-vertical"}>
+                <IonLabel>{equipment.condition}</IonLabel>
+              </IonChip>
+            )}
 
             <IonText>
               <h2 className={"ion-no-margin"}>{equipment.title}</h2>
@@ -118,13 +130,11 @@ const EquipmentDetail: React.FC = () => {
                 </IonText>
               </IonRow>
             </div>
-
-            {/*<SendMessageCard/>*/}
           </div>
 
           <IonItem className="ion-no-padding ion-justify-content-evenly ion-margin-vertical large-icons-row">
             <IonCol>
-              <a href={`https://wa.me/${phoneNumber}`}>
+              <a href={`https://wa.me/${equipment.phone}`}>
                 <IonButton
                   className={"large-icon-button ion-no-padding"}
                   color={"dark"}
@@ -218,7 +228,7 @@ const EquipmentDetail: React.FC = () => {
             </h3>
 
             <RelatedEquipmentCard
-              id={equipment.id}
+              id={+id}
               title={equipment.title}
               price={equipment.price}
             />

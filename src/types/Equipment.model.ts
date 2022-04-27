@@ -12,7 +12,9 @@ export interface Equipment {
 
 export interface EquipmentListing {
   id: number;
-  images: Array<string>;
+  images: Array<{
+    path: string;
+  }>;
   isSold: boolean;
   price: number;
   title: string;

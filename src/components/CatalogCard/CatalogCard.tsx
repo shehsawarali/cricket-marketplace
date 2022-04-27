@@ -14,9 +14,7 @@ import { locationOutline, chatbubblesOutline } from "ionicons/icons";
 
 import "./CatalogCard.css";
 import { Equipment } from "../../types";
-import image from "../../orange.jpeg";
-
-const images = [image, image];
+import defaultImage from "../../orange.jpeg";
 
 const CatalogCard: React.FC<{ equipment: Equipment }> = ({ equipment }) => {
   return (
@@ -26,11 +24,17 @@ const CatalogCard: React.FC<{ equipment: Equipment }> = ({ equipment }) => {
         color={"dark"}
       >
         <IonSlides pager color={"dark"}>
-          {images.map((image: any, index: any) => (
+          {equipment.images.map((image: any, index: any) => (
             <IonSlide key={index}>
-              <IonImg src={image} />
+              <IonImg src={image.path} />
             </IonSlide>
           ))}
+
+          {equipment.images.length === 0 && (
+            <IonSlide>
+              <IonImg src={defaultImage} />
+            </IonSlide>
+          )}
         </IonSlides>
       </IonRouterLink>
 
@@ -47,7 +51,7 @@ const CatalogCard: React.FC<{ equipment: Equipment }> = ({ equipment }) => {
       {equipment.condition && (
         <IonChip>
           <IonLabel className={"ion-text-capitalize"}>
-            Refurbished (Up To Spec)
+            {equipment.condition}
           </IonLabel>
         </IonChip>
       )}

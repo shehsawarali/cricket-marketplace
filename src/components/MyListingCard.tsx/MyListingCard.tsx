@@ -6,15 +6,8 @@ import {
   IonCol,
   IonThumbnail,
 } from "@ionic/react";
-import image from "../../orange.jpeg";
+import defaultImage from "../../orange.jpeg";
 import { EquipmentListing } from "../../types";
-
-interface MyListingCardProps {
-  id: number;
-  title: string;
-  price: string;
-  image?: string;
-}
 
 const MyListingCard: React.FC<{ equipment: EquipmentListing }> = ({
   equipment,
@@ -26,7 +19,7 @@ const MyListingCard: React.FC<{ equipment: EquipmentListing }> = ({
     >
       <IonItem>
         <IonThumbnail slot="start">
-          <img src={image} />
+          <img src={equipment.images[0]?.path || defaultImage} />
         </IonThumbnail>
 
         <IonCol className={"text-overflow"}>
