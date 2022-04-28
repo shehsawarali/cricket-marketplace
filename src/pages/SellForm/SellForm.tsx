@@ -1,9 +1,11 @@
+import { useRef, useState } from "react";
+
+import { Formik } from "formik";
 import {
   IonContent,
   IonHeader,
   IonPage,
   IonToolbar,
-  IonIcon,
   IonButtons,
   IonBackButton,
   IonItem,
@@ -15,20 +17,25 @@ import {
   IonFooter,
   IonTextarea,
 } from "@ionic/react";
+import { useQuery } from "react-query";
+
 import "./SellForm.css";
-import React, { useRef, useState } from "react";
-import { categories, sellFormValidation } from "../../constants";
-import { Formik } from "formik";
 import HideTabs from "../../components/HideTabs";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import LocationModal from "../../components/LocationModal/LocationModal";
 import ImagesModal from "../../components/ImagesModal/ImagesModal";
 import { Category } from "../../types";
+import { getCategories } from "../../services/equipment";
+import Location from "../../types/Location.model";
 
 const SellForm: React.FC = () => {
-  const [selectedImages, setSelectedImages] = useState<Array<object>>([]);
-  const pageRef = React.useRef<any>(null);
+  const categoryQuery = useQuery("equipmentCategories", getCategories, {
+    select: (data) => data.data.categories,
+  });
 
+  const pageRef = useRef<any>(null);
+  const [selectedImages, setSelectedImages] = useState<Array<object>>([]);
+  const [location, setLocation] = useState<Location | null>(null);
   const [locationModal, setLocationModal] = useState<boolean>(false);
   const [imagesModal, setImagesModal] = useState<boolean>(false);
 
@@ -57,7 +64,7 @@ const SellForm: React.FC = () => {
           description: null,
           price: null,
           location: null,
-          categories: [],
+          category: null,
         }}
         onSubmit={(values) => {
           alert(JSON.stringify(values, null, 2));
@@ -72,6 +79,7 @@ const SellForm: React.FC = () => {
                 <IonItem className={"sell-form-field"}>
                   <IonLabel>Name</IonLabel>
                   <IonInput
+                    name={"name"}
                     placeholder={"Required"}
                     value={formikProps.values.name}
                     onInput={formikProps.handleChange}
@@ -79,19 +87,25 @@ const SellForm: React.FC = () => {
                 </IonItem>
 
                 <IonItem className={"sell-form-field"}>
-                  <IonLabel>Categories</IonLabel>
+                  <IonLabel>Category</IonLabel>
                   <IonSelect
-                    multiple={true}
-                    value={formikProps.values.categories}
+                    name={"category"}
+                    value={formikProps.values.category}
                     onIonChange={formikProps.handleChange}
                   >
-                    {categories.map((category: Category, index: number) => {
-                      return (
-                        <IonSelectOption value={category.name} key={index}>
-                          {category.name}
-                        </IonSelectOption>
-                      );
-                    })}
+                    {categoryQuery.data?.map(
+                      (category: Category, index: number) => {
+                        return (
+                          <IonSelectOption
+                            value={category.id}
+                            key={index}
+                            className={"ion-text-capitalize"}
+                          >
+                            {category.name}
+                          </IonSelectOption>
+                        );
+                      }
+                    )}
                   </IonSelect>
                 </IonItem>
 
@@ -100,7 +114,7 @@ const SellForm: React.FC = () => {
                   <IonInput
                     readonly
                     placeholder={"Required"}
-                    value={formikProps.values.location}
+                    value={location?.description}
                     onClick={toggleLocationModal}
                   />
                 </IonItem>
@@ -108,9 +122,10 @@ const SellForm: React.FC = () => {
                 <IonItem className={"sell-form-field"}>
                   <IonLabel>Description</IonLabel>
                   <IonTextarea
+                    name={"description"}
                     placeholder={"Required"}
                     value={formikProps.values.description}
-                    onChange={formikProps.handleChange}
+                    onIonChange={formikProps.handleChange}
                     autoGrow
                   />
                 </IonItem>
@@ -118,6 +133,7 @@ const SellForm: React.FC = () => {
                 <IonItem className={"sell-form-field "}>
                   <IonLabel>Price</IonLabel>
                   <IonInput
+                    name={"price"}
                     inputmode={"numeric"}
                     placeholder={"Required"}
                     value={formikProps.values.price}
@@ -151,10 +167,9 @@ const SellForm: React.FC = () => {
 
             <LocationModal
               isOpen={locationModal}
-              setValue={(value) =>
-                formikProps.setFieldValue("location", value, true)
-              }
+              setValue={setLocation}
               close={toggleLocationModal}
+              parentRef={pageRef.current}
             />
 
             <ImagesModal
