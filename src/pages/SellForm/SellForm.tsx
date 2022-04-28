@@ -13,6 +13,7 @@ import {
   IonSelectOption,
   IonButton,
   IonFooter,
+  IonTextarea,
 } from "@ionic/react";
 import "./SellForm.css";
 import React, { useRef, useState } from "react";
@@ -106,10 +107,11 @@ const SellForm: React.FC = () => {
 
                 <IonItem className={"sell-form-field"}>
                   <IonLabel>Description</IonLabel>
-                  <IonInput
+                  <IonTextarea
                     placeholder={"Required"}
                     value={formikProps.values.description}
-                    onInput={formikProps.handleChange}
+                    onChange={formikProps.handleChange}
+                    autoGrow
                   />
                 </IonItem>
 
