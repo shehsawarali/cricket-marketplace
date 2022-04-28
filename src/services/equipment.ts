@@ -9,8 +9,12 @@ export const getCatalog = (page: number) => {
   return service.get(`/equipment?page=${page}`).then((res) => res.data);
 };
 
-export const getMyListings = () => {
+export const getActiveListings = () => {
   return service.get("/equipment?status=active").then((res) => res.data);
+};
+
+export const getSoldListings = () => {
+  return service.get("/equipment?status=sold").then((res) => res.data);
 };
 
 export const getCategories = () => {

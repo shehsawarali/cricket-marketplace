@@ -9,24 +9,81 @@ import {
   IonButton,
   IonRouterLink,
   IonSpinner,
+  IonSegment,
+  IonSegmentButton,
   useIonViewDidEnter,
 } from "@ionic/react";
 import "./MyListings.css";
 import MyListingCard from "../../components/MyListingCard.tsx/MyListingCard";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import { EquipmentListing } from "../../types/Equipment.model";
-import { getMyListings } from "../../services/equipment";
+import { getActiveListings, getSoldListings } from "../../services/equipment";
 
 const MyListings: React.FC = () => {
-  const [listings, setListings] = useState<Array<EquipmentListing>>([]);
+  const [activeList, setActiveList] = useState<Array<EquipmentListing>>([]);
+  const [soldList, setSoldList] = useState<Array<EquipmentListing>>([]);
+  const [segment, setSegment] = useState<string>("active");
   const [pageLoading, setPageLoading] = useState(true);
 
+  useEffect(() => {
+    if (segment === "active" && activeList.length === 0) {
+      setPageLoading(true);
+
+      getActiveListings().then((data) => {
+        setActiveList(data.equipment);
+        setPageLoading(false);
+      });
+    } else if (segment === "sold" && soldList.length === 0) {
+      setPageLoading(true);
+      getSoldListings().then((data) => {
+        setSoldList(data.equipment);
+        setPageLoading(false);
+      });
+    }
+  }, [segment]);
+
   useIonViewDidEnter(() => {
-    getMyListings().then((data) => {
-      setListings(data.equipment);
+    getActiveListings().then((data) => {
+      setActiveList(data.equipment);
       setPageLoading(false);
     });
   });
+
+  const renderActiveList = () => {
+    if (!pageLoading && activeList.length === 0) {
+      return (
+        <>
+          <div className={"ion-padding-top ion-text-center"}>
+            <IonText className={"no-listings-text text-primary"}>
+              You Haven't Published Any Listings
+            </IonText>
+          </div>
+        </>
+      );
+    }
+
+    return activeList.map((listing: EquipmentListing, index: any) => (
+      <MyListingCard key={index} equipment={listing} />
+    ));
+  };
+
+  const renderSoldList = () => {
+    if (!pageLoading && soldList.length === 0) {
+      return (
+        <>
+          <div className={"ion-padding-top ion-text-center"}>
+            <IonText className={"no-listings-text text-primary"}>
+              You Haven't Sold Any Listings
+            </IonText>
+          </div>
+        </>
+      );
+    }
+
+    return soldList.map((listing: EquipmentListing, index: any) => (
+      <MyListingCard key={index} equipment={listing} />
+    ));
+  };
 
   return (
     <IonPage>
@@ -35,6 +92,18 @@ const MyListings: React.FC = () => {
       </IonHeader>
 
       <PageTitle title={"My Listings"} />
+
+      <div className={"listings-segment-container ion-margin-horizontal"}>
+        <IonSegment
+          value={segment}
+          onIonChange={(e: any) => {
+            setSegment(e.detail.value);
+          }}
+        >
+          <IonSegmentButton value="active">Active</IonSegmentButton>
+          <IonSegmentButton value="sold">Sold</IonSegmentButton>
+        </IonSegment>
+      </div>
 
       <IonContent>
         {pageLoading && (
@@ -45,21 +114,8 @@ const MyListings: React.FC = () => {
 
         {!pageLoading && (
           <>
-            {listings.length < 1 && (
-              <div className={"ion-padding-top ion-text-center"}>
-                <IonText className={"no-listings-text text-primary"}>
-                  You Haven't Published Any Listings
-                </IonText>
-              </div>
-            )}
-
-            {listings.length > 0 && (
-              <>
-                {listings.map((listing: any, index: any) => {
-                  return <MyListingCard key={index} equipment={listing} />;
-                })}
-              </>
-            )}
+            {segment === "active" && renderActiveList()}
+            {!pageLoading && segment === "sold" && renderSoldList()}
 
             <IonRouterLink routerLink={"/add-listing"} color={"dark"}>
               <div className={"ion-padding"}>

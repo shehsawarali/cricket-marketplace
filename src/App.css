@@ -38,6 +38,10 @@
   font-size: 36px;
 }
 
+.listings-segment-container {
+  margin-bottom: 20px;
+}
+
 :root {
   --ion-item-border-color: #e8e8e8;
   --ion-item-background: transparent;
