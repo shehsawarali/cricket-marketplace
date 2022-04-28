@@ -64,7 +64,7 @@ const SellForm: React.FC = () => {
           description: null,
           price: null,
           location: null,
-          category: null,
+          categories: [],
         }}
         onSubmit={(values) => {
           alert(JSON.stringify(values, null, 2));
@@ -87,11 +87,12 @@ const SellForm: React.FC = () => {
                 </IonItem>
 
                 <IonItem className={"sell-form-field"}>
-                  <IonLabel>Category</IonLabel>
+                  <IonLabel>Categories</IonLabel>
                   <IonSelect
-                    name={"category"}
-                    value={formikProps.values.category}
+                    name={"categories"}
+                    value={formikProps.values.categories}
                     onIonChange={formikProps.handleChange}
+                    multiple
                   >
                     {categoryQuery.data?.map(
                       (category: Category, index: number) => {
