@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import {
   IonContent,
@@ -11,8 +11,9 @@ import {
   IonSpinner,
   IonSegment,
   IonSegmentButton,
-  useIonViewDidEnter,
 } from "@ionic/react";
+import { useQuery } from "react-query";
+
 import "./MyListings.css";
 import MyListingCard from "../../components/MyListingCard.tsx/MyListingCard";
 import PageTitle from "../../components/PageTitle/PageTitle";
@@ -20,37 +21,23 @@ import { EquipmentListing } from "../../types/Equipment.model";
 import { getActiveListings, getSoldListings } from "../../services/equipment";
 
 const MyListings: React.FC = () => {
-  const [activeList, setActiveList] = useState<Array<EquipmentListing>>([]);
-  const [soldList, setSoldList] = useState<Array<EquipmentListing>>([]);
+  const activeListQuery = useQuery("activeListings", getActiveListings);
+  const soldListQuery = useQuery("soldListings", getSoldListings);
   const [segment, setSegment] = useState<string>("active");
-  const [pageLoading, setPageLoading] = useState(true);
 
-  useEffect(() => {
-    if (segment === "active" && activeList.length === 0) {
-      setPageLoading(true);
-
-      getActiveListings().then((data) => {
-        setActiveList(data.equipment);
-        setPageLoading(false);
-      });
-    } else if (segment === "sold" && soldList.length === 0) {
-      setPageLoading(true);
-      getSoldListings().then((data) => {
-        setSoldList(data.equipment);
-        setPageLoading(false);
-      });
-    }
-  }, [segment]);
-
-  useIonViewDidEnter(() => {
-    getActiveListings().then((data) => {
-      setActiveList(data.equipment);
-      setPageLoading(false);
-    });
-  });
+  const activeList = activeListQuery.data?.equipment || [];
+  const soldList = soldListQuery.data?.equipment || [];
 
   const renderActiveList = () => {
-    if (!pageLoading && activeList.length === 0) {
+    if (activeListQuery.isLoading) {
+      return (
+        <div className="ion-margin-top ion-text-center">
+          <IonSpinner name={"crescent"} />
+        </div>
+      );
+    }
+
+    if ([activeList].length === 0) {
       return (
         <>
           <div className={"ion-padding-top ion-text-center"}>
@@ -68,7 +55,15 @@ const MyListings: React.FC = () => {
   };
 
   const renderSoldList = () => {
-    if (!pageLoading && soldList.length === 0) {
+    if (soldListQuery.isLoading) {
+      return (
+        <div className="ion-margin-top ion-text-center">
+          <IonSpinner name={"crescent"} />
+        </div>
+      );
+    }
+
+    if (soldList.length === 0) {
       return (
         <>
           <div className={"ion-padding-top ion-text-center"}>
@@ -106,31 +101,21 @@ const MyListings: React.FC = () => {
       </div>
 
       <IonContent>
-        {pageLoading && (
-          <div className="ion-margin-top ion-text-center">
-            <IonSpinner name={"crescent"} />
+        {segment === "active" && renderActiveList()}
+        {segment === "sold" && renderSoldList()}
+
+        <IonRouterLink routerLink={"/add-listing"} color={"dark"}>
+          <div className={"ion-padding"}>
+            <IonButton
+              color={"success"}
+              expand={"block"}
+              size={"large"}
+              className={"font-18px"}
+            >
+              Start Selling
+            </IonButton>
           </div>
-        )}
-
-        {!pageLoading && (
-          <>
-            {segment === "active" && renderActiveList()}
-            {!pageLoading && segment === "sold" && renderSoldList()}
-
-            <IonRouterLink routerLink={"/add-listing"} color={"dark"}>
-              <div className={"ion-padding"}>
-                <IonButton
-                  color={"success"}
-                  expand={"block"}
-                  size={"large"}
-                  className={"font-18px"}
-                >
-                  Start Selling
-                </IonButton>
-              </div>
-            </IonRouterLink>
-          </>
-        )}
+        </IonRouterLink>
       </IonContent>
     </IonPage>
   );
