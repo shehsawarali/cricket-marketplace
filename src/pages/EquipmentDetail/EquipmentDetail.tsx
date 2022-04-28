@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+
+import { Share } from "@capacitor/share";
 import {
   IonContent,
   IonHeader,
@@ -29,27 +31,24 @@ import {
   infiniteOutline,
   gitCompareOutline,
 } from "ionicons/icons";
-import defaultImage from "../../orange.jpeg";
+import { useQuery } from "react-query";
+import { useParams } from "react-router";
+
 import "./EquipmentDetail.css";
+import defaultImage from "../../orange.jpeg";
 import TechnicalDataField from "../../components/TechnicalDataField/TechnicalDataField";
 import RelatedEquipmentCard from "../../components/RelatedEquipmentCard/RelatedEquipmentCard";
-import { useParams } from "react-router";
 import HideTabs from "../../components/HideTabs";
-import { Share } from "@capacitor/share";
 import { Equipment } from "../../types/Equipment.model";
 import { getEquipmentDetail } from "../../services/equipment";
 
 const EquipmentDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const [equipment, setEquipment] = useState<Equipment | null>(null);
-  const [pageLoading, setPageLoading] = useState(true);
+  const equipmentQuery = useQuery(["equipmentDetail", id], () =>
+    getEquipmentDetail(id)
+  );
 
-  useEffect(() => {
-    getEquipmentDetail(id).then((response) => {
-      setEquipment(response.data);
-      setPageLoading(false);
-    });
-  }, []);
+  const equipment: Equipment = equipmentQuery.data?.data;
 
   const socialShare = async () => {
     await Share.share({
@@ -59,7 +58,7 @@ const EquipmentDetail: React.FC = () => {
     });
   };
 
-  if (pageLoading) {
+  if (equipmentQuery.isLoading) {
     return (
       <div className={"ion-margin-top ion-text-center"}>
         <IonSpinner name={"crescent"} />
@@ -76,7 +75,7 @@ const EquipmentDetail: React.FC = () => {
             <IonBackButton color={"dark"} />
           </IonButtons>
           <IonTitle className={"ion-text-capitalize"}>
-            {equipment?.title}
+            {equipment.title}
           </IonTitle>
         </IonToolbar>
       </IonHeader>
