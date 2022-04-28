@@ -13,14 +13,15 @@ import {
   IonButton,
   IonButtons,
   IonSpinner,
-  useIonViewDidEnter,
 } from "@ionic/react";
-import "./Catalog.css";
 import { locationOutline, searchOutline } from "ionicons/icons";
+import { useInfiniteQuery } from "react-query";
+import { useHistory } from "react-router";
+
+import "./Catalog.css";
 import CatalogCard from "../../components/CatalogCard/CatalogCard";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import LocationModal from "../../components/LocationModal/LocationModal";
-import { useHistory } from "react-router";
 import { Equipment } from "../../types";
 import Location from "../../types/Location.model";
 import { getCatalog } from "../../services/equipment";
@@ -32,43 +33,29 @@ const Catalog: React.FC = () => {
   const [scrollDisabled, setScrollDisabled] = useState(false);
   const [location, setLocation] = useState<Location | null>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [pageLoading, setPageLoading] = useState(true);
-  const [page, setPage] = useState<number>(1);
-  const [catalogData, setCatalogData] = useState<Array<Equipment>>([]);
 
-  useIonViewDidEnter(() => {
-    loadCatalogData(() => {
-      setPageLoading(false);
-    });
-  }, []);
+  const catalogQuery = useInfiniteQuery(
+    ["catalog"],
+    ({ pageParam = 1 }) => getCatalog(pageParam),
+    {
+      getNextPageParam: (lastPage, allPages) => {
+        return lastPage.nextPage;
+      },
+
+      onSuccess: () => {
+        if (scrollRef.current) {
+          scrollRef.current.complete();
+        }
+      },
+    }
+  );
 
   const loadMoreData = () => {
-    const callback = () => {
-      if (scrollRef.current) {
-        scrollRef.current.complete();
-      }
-    };
-
-    loadCatalogData(callback);
-  };
-
-  const loadCatalogData = (callback?: () => void) => {
-    getCatalog(page).then((data) => {
-      if (data.equipment.length) {
-        setCatalogData((currentCatalogData) => [
-          ...currentCatalogData,
-          ...data.equipment,
-        ]);
-      }
-
-      if (page < data.totalPage) {
-        setPage((currentPage) => currentPage + 1);
-      } else {
-        setScrollDisabled(true);
-      }
-
-      if (callback) callback();
-    });
+    if (catalogQuery.hasNextPage) {
+      catalogQuery.fetchNextPage();
+    } else {
+      setScrollDisabled(true);
+    }
   };
 
   const toggleModal = () => {
@@ -102,16 +89,18 @@ const Catalog: React.FC = () => {
           </IonRow>
         </IonRow>
 
-        {pageLoading && (
+        {catalogQuery.isLoading && (
           <div className={"ion-margin-top ion-text-center"}>
             <IonSpinner name={"crescent"} />
           </div>
         )}
 
-        {!pageLoading && (
+        {!catalogQuery.isLoading && (
           <>
-            {catalogData.map((equipment: Equipment, index: any) => {
-              return <CatalogCard key={index} equipment={equipment} />;
+            {catalogQuery.data?.pages.map((pageData: any) => {
+              return pageData.equipment.map((equipment: Equipment) => (
+                <CatalogCard key={equipment.id} equipment={equipment} />
+              ));
             })}
 
             <IonInfiniteScroll
@@ -123,7 +112,7 @@ const Catalog: React.FC = () => {
               <IonInfiniteScrollContent
                 loadingSpinner="bubbles"
                 loadingText="Loading"
-              ></IonInfiniteScrollContent>
+              />
             </IonInfiniteScroll>
           </>
         )}
