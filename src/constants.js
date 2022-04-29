@@ -14,8 +14,7 @@ export const categories = [
 export const sellFormValidation = yup.object({
   name: yup.string().nullable().required("Name is required"),
   description: yup.string().nullable().required("Description is required"),
-  location: yup.string().nullable().required("Location is required"),
-  price: yup.string().nullable().required("Price is required"),
+  price: yup.number().nullable().required("Price is required"),
   categories: yup.array().min(1, "Select at least one category"),
 });
 
@@ -31,17 +30,4 @@ export const mockEquipment = {
   images: [],
 };
 
-export const mockTechnicalData = {
-  "Manual / Auto Tie": "Auto",
-  "Cylinder Size": `8"`,
-  "Motor Horsepower": `21-30 HP`,
-  "Feed Opening Length": `40"-60"`,
-  "Feed Opening Width": `31"-42"`,
-  "Hooper Opening Length": `21-30 HP`,
-  "Hopper Opening Width": `9"`,
-  "Bale Size Width": `51-75 HP`,
-  "Bale Size height": `11"`,
-};
-
-export const mockPhoneNumber = "923373661000";
 export const PRIMARY_COLOR = "#f1233c";

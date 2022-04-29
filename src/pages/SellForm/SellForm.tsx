@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 
-import { Formik } from "formik";
+import { Formik, FormikValues } from "formik";
 import {
   IonContent,
   IonHeader,
@@ -16,6 +16,7 @@ import {
   IonButton,
   IonFooter,
   IonTextarea,
+  IonText,
 } from "@ionic/react";
 import { useQuery } from "react-query";
 
@@ -27,6 +28,7 @@ import ImagesModal from "../../components/ImagesModal/ImagesModal";
 import { Category } from "../../types";
 import { getCategories } from "../../services/equipment";
 import Location from "../../types/Location.model";
+import { sellFormValidation } from "../../constants";
 
 const SellForm: React.FC = () => {
   const categoryQuery = useQuery("equipmentCategories", getCategories, {
@@ -47,6 +49,27 @@ const SellForm: React.FC = () => {
     setImagesModal((currentState) => !currentState);
   };
 
+  const showError = (errors: any) => {
+    let errorsKeys = Object.keys(errors);
+    return errors[errorsKeys[0]];
+  };
+
+  const submitForm = (values: FormikValues, { setFieldError }: any) => {
+    if (location === null || selectedImages.length === 0) {
+      if (location === null) {
+        setFieldError("location", "Location is required");
+      }
+
+      if (selectedImages.length === 0) {
+        setFieldError("media", "Media must be uploaded");
+      }
+
+      return;
+    }
+
+    alert(JSON.stringify(values, null, 2));
+  };
+
   return (
     <IonPage ref={pageRef}>
       <HideTabs />
@@ -60,15 +83,15 @@ const SellForm: React.FC = () => {
 
       <Formik
         initialValues={{
-          name: null,
-          description: null,
-          price: null,
-          location: null,
+          name: "",
+          description: "",
+          price: "",
           categories: [],
+          location: "",
+          media: [],
         }}
-        onSubmit={(values) => {
-          alert(JSON.stringify(values, null, 2));
-        }}
+        onSubmit={submitForm}
+        validationSchema={sellFormValidation}
       >
         {(formikProps) => (
           <>
@@ -147,9 +170,24 @@ const SellForm: React.FC = () => {
                   <IonInput
                     readonly
                     placeholder={"0 Selected"}
-                    onClick={() => toggleImagesModal()}
+                    value={
+                      selectedImages.length > 0
+                        ? `${selectedImages.length} selected`
+                        : null
+                    }
+                    onClick={toggleImagesModal}
                   />
                 </IonItem>
+
+                {!formikProps.isValid && formikProps.submitCount > 0 && (
+                  <div
+                    className={"ion-text-center ion-margin ion-color-danger"}
+                  >
+                    <IonText color={"warning"}>
+                      {showError(formikProps.errors)}
+                    </IonText>
+                  </div>
+                )}
               </form>
             </IonContent>
 
@@ -165,23 +203,23 @@ const SellForm: React.FC = () => {
                 Submit
               </IonButton>
             </IonFooter>
-
-            <LocationModal
-              isOpen={locationModal}
-              setValue={setLocation}
-              close={toggleLocationModal}
-              parentRef={pageRef.current}
-            />
-
-            <ImagesModal
-              isOpen={imagesModal}
-              setValue={setSelectedImages}
-              close={toggleImagesModal}
-              parentRef={pageRef.current}
-            />
           </>
         )}
       </Formik>
+
+      <LocationModal
+        isOpen={locationModal}
+        setValue={setLocation}
+        close={toggleLocationModal}
+        parentRef={pageRef.current}
+      />
+
+      <ImagesModal
+        isOpen={imagesModal}
+        setValue={setSelectedImages}
+        close={toggleImagesModal}
+        parentRef={pageRef.current}
+      />
     </IonPage>
   );
 };

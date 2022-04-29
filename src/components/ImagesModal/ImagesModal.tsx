@@ -40,6 +40,7 @@ const ImagesModal: React.FC<ImageModalProps> = (props) => {
     });
 
     setSelectedImages(cameraResultImg.photos);
+    props.setValue(cameraResultImg.photos);
     setDefaultImage(cameraResultImg.photos[0].webPath);
   };
 
@@ -76,7 +77,7 @@ const ImagesModal: React.FC<ImageModalProps> = (props) => {
                   ? `${selectedImages.length} selected`
                   : null
               }
-              onClick={() => attachPictures()}
+              onClick={attachPictures}
             />
           </IonItem>
 
