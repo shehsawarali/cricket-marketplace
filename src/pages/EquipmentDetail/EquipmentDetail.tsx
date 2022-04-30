@@ -104,7 +104,9 @@ const EquipmentDetail: React.FC = () => {
             )}
 
             <IonText>
-              <h2 className={"ion-margin-top"}>{equipment.title}</h2>
+              <h2 className={"ion-margin-top ion-text-capitalize"}>
+                {equipment.title}
+              </h2>
               <h4 className={"ion-margin-top"}>${equipment.price}</h4>
             </IonText>
 
