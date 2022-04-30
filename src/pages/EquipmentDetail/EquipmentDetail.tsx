@@ -98,13 +98,13 @@ const EquipmentDetail: React.FC = () => {
 
           <div className={"ion-padding-horizontal"}>
             {equipment.condition && (
-              <IonChip className={"ion-no-margin ion-margin-vertical"}>
+              <IonChip className={"ion-no-margin ion-margin-top"}>
                 <IonLabel>{equipment.condition}</IonLabel>
               </IonChip>
             )}
 
             <IonText>
-              <h2 className={"ion-no-margin"}>{equipment.title}</h2>
+              <h2 className={"ion-margin-top"}>{equipment.title}</h2>
               <h4 className={"ion-margin-top"}>${equipment.price}</h4>
             </IonText>
 
