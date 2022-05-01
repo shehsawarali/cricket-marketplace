@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import {
   IonContent,
@@ -7,28 +7,31 @@ import {
   IonToolbar,
   IonButtons,
   IonBackButton,
-  IonRow,
-  IonIcon,
-  IonInput,
+  IonSearchbar,
+  IonSpinner,
 } from "@ionic/react";
+import { useQuery } from "react-query";
+
 import "./Search.css";
-import { mockEquipment } from "../../constants";
 import HideTabs from "../../components/HideTabs";
-import { searchOutline } from "ionicons/icons";
 import CatalogCard from "../../components/CatalogCard/CatalogCard";
-import { Formik, FormikValues } from "formik";
 import { Equipment } from "../../types";
+import { getSearchResults } from "../../services/equipment";
 
 const Search: React.FC = () => {
-  const [results, setResults] = useState<Array<Equipment>>([]);
+  const [query, setQuery] = React.useState("");
+  const searchQuery = useQuery(
+    ["catalog", query],
+    () => {
+      if (query) return getSearchResults(query);
+    },
+    {
+      select: (data) => data.equipment,
+    }
+  );
 
-  useEffect(() => {
-    setResults([mockEquipment, mockEquipment]);
-  }, []);
-
-  const search = (values: FormikValues) => {
-    console.log(values);
-    alert(`You searched for ${values}`);
+  const handleQueryChange = (e: any) => {
+    setQuery(e.target.value);
   };
 
   return (
@@ -43,40 +46,33 @@ const Search: React.FC = () => {
       </IonHeader>
 
       <IonContent>
-        <Formik
-          initialValues={{
-            query: "",
-          }}
-          onSubmit={search}
-        >
-          {(formikProps) => (
-            <form onSubmit={formikProps.handleSubmit}>
-              <IonRow className={"ion-align-items-center search-input-row"}>
-                <IonIcon icon={searchOutline} className={"search-input-icon"} />
-                <IonInput
-                  className={"search-input"}
-                  placeholder={"Search"}
-                  value={formikProps.values.query}
-                  onInput={formikProps.handleChange}
-                  clearInput
-                />
-              </IonRow>
-            </form>
-          )}
-        </Formik>
+        <IonSearchbar
+          value={query}
+          onIonChange={handleQueryChange}
+          showCancelButton="never"
+          debounce={500}
+        />
 
-        <div id={"results"}>
-          {/*{results.map((result: Equipment, index: any) => (*/}
-          {/*  <CatalogCard*/}
-          {/*    key={index}*/}
-          {/*    id={result.id}*/}
-          {/*    title={result.title}*/}
-          {/*    price={result.price}*/}
-          {/*    location={result.location}*/}
-          {/*    distance={result.distance}*/}
-          {/*    categories={result.categories}*/}
-          {/*  />*/}
-          {/*))}*/}
+        <div>
+          {searchQuery.isLoading && (
+            <div className={"ion-text-center ion-margin-top"}>
+              <IonSpinner />
+            </div>
+          )}
+
+          {searchQuery.data?.map((result: Equipment, index: any) => (
+            <CatalogCard key={index} equipment={result} />
+          ))}
+
+          {searchQuery.data && searchQuery.data.length === 0 && (
+            <div className={"ion-text-center ion-margin-top"}>
+              {searchQuery.isLoading && <IonSpinner />}
+
+              {searchQuery.data && searchQuery.data.length === 0 && (
+                <>There are no results matching your query</>
+              )}
+            </div>
+          )}
         </div>
       </IonContent>
     </IonPage>
