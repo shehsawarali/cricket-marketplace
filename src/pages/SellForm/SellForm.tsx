@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import React from "react";
 
 import { Formik, FormikValues } from "formik";
 import {
@@ -18,7 +18,7 @@ import {
   IonTextarea,
   IonText,
 } from "@ionic/react";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 
 import "./SellForm.css";
 import HideTabs from "../../components/HideTabs";
@@ -26,20 +26,24 @@ import PageTitle from "../../components/PageTitle/PageTitle";
 import LocationModal from "../../components/LocationModal/LocationModal";
 import ImagesModal from "../../components/ImagesModal/ImagesModal";
 import { Category } from "../../types";
-import { getCategories } from "../../services/equipment";
+import { createEquipment, getCategories } from "../../services/equipment";
 import Location from "../../types/Location.model";
 import { sellFormValidation } from "../../constants";
+import ServerErrorAlert from "../../components/ServerErrorAlert";
 
 const SellForm: React.FC = () => {
   const categoryQuery = useQuery("equipmentCategories", getCategories, {
     select: (data) => data.data.categories,
+    retry: 1,
   });
 
-  const pageRef = useRef<any>(null);
-  const [selectedImages, setSelectedImages] = useState<Array<object>>([]);
-  const [location, setLocation] = useState<Location | null>(null);
-  const [locationModal, setLocationModal] = useState<boolean>(false);
-  const [imagesModal, setImagesModal] = useState<boolean>(false);
+  const submitMutation = useMutation(createEquipment);
+
+  const pageRef = React.useRef<any>(null);
+  const [selectedImages, setSelectedImages] = React.useState<Array<object>>([]);
+  const [location, setLocation] = React.useState<Location | null>(null);
+  const [locationModal, setLocationModal] = React.useState<boolean>(false);
+  const [imagesModal, setImagesModal] = React.useState<boolean>(false);
 
   const toggleLocationModal = () => {
     setLocationModal((currentState) => !currentState);
@@ -67,7 +71,14 @@ const SellForm: React.FC = () => {
       return;
     }
 
-    alert(JSON.stringify(values, null, 2));
+    submitMutation.mutate({
+      title: values.name,
+      description: values.description,
+      price: values.price,
+      categories: values.categories,
+      location: location.description,
+      brand_id: 1,
+    });
   };
 
   return (
@@ -220,6 +231,10 @@ const SellForm: React.FC = () => {
         close={toggleImagesModal}
         parentRef={pageRef.current}
       />
+
+      {(submitMutation.isError || categoryQuery.isError) && (
+        <ServerErrorAlert />
+      )}
     </IonPage>
   );
 };

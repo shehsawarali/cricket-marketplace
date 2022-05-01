@@ -21,7 +21,7 @@ import {
 import { Geolocation } from "@capacitor/geolocation";
 
 import "./LocationModal.css";
-import { getLocationPredictions } from "../../services/equipment";
+import { getLocationPredictions } from "../../services/location";
 import Location from "../../types/Location.model";
 
 interface LocationModalProps {
