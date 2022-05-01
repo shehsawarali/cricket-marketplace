@@ -25,6 +25,10 @@ export const getSearchResults = (query: string) => {
   return service.get(`/equipment?page=1`).then((res) => res.data);
 };
 
+export const markEquipmentAsSold = (id: number) => {
+  return service.post("/equipment/sold", { id }).then((res) => res.data);
+};
+
 export const getLocationPredictions = (query: string) => {
   return axios
     .get(`https://crickpro.com/api/get/location?q=${query}`, {

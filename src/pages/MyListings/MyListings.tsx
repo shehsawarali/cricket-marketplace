@@ -50,7 +50,11 @@ const MyListings: React.FC = () => {
     }
 
     return activeList.map((listing: EquipmentListing, index: any) => (
-      <MyListingCard key={index} equipment={listing} />
+      <MyListingCard
+        key={index}
+        equipment={listing}
+        refresh={refetchlistings}
+      />
     ));
   };
 
@@ -76,8 +80,17 @@ const MyListings: React.FC = () => {
     }
 
     return soldList.map((listing: EquipmentListing, index: any) => (
-      <MyListingCard key={index} equipment={listing} />
+      <MyListingCard
+        key={index}
+        equipment={listing}
+        refresh={refetchlistings}
+      />
     ));
+  };
+
+  const refetchlistings = () => {
+    activeListQuery.refetch();
+    soldListQuery.refetch();
   };
 
   return (

@@ -5,31 +5,66 @@ import {
   IonRouterLink,
   IonCol,
   IonThumbnail,
+  IonButton,
+  IonIcon,
+  IonActionSheet,
 } from "@ionic/react";
 import defaultImage from "../../orange.jpeg";
 import { EquipmentListing } from "../../types";
+import { ellipsisHorizontal } from "ionicons/icons";
+import { markEquipmentAsSold } from "../../services/equipment";
 
-const MyListingCard: React.FC<{ equipment: EquipmentListing }> = ({
-  equipment,
-}) => {
+const MyListingCard: React.FC<{
+  equipment: EquipmentListing;
+  refresh: () => void;
+}> = ({ equipment, refresh }) => {
+  const [showActionSheet, setShowActionSheet] = React.useState(false);
+
+  const markAsSold = () => {
+    markEquipmentAsSold(equipment.id).then(() => {
+      refresh();
+    });
+  };
+
   return (
-    <IonRouterLink
-      routerLink={`/catalog/equipment/${equipment.id}`}
-      color={"dark"}
-    >
+    <>
       <IonItem>
         <IonThumbnail slot="start">
           <img src={equipment.images[0]?.path || defaultImage} />
         </IonThumbnail>
 
-        <IonCol className={"text-overflow"}>
-          <IonLabel>{equipment.title}</IonLabel>
-          <IonLabel>
-            <p>${equipment.price}</p>
-          </IonLabel>
-        </IonCol>
+        <IonRouterLink
+          routerLink={`/catalog/equipment/${equipment.id}`}
+          color={"dark"}
+        >
+          <IonCol className={"text-overflow"}>
+            <IonLabel>{equipment.title}</IonLabel>
+            <IonLabel>
+              <p>${equipment.price}</p>
+            </IonLabel>
+          </IonCol>
+        </IonRouterLink>
+
+        <IonButton
+          slot="end"
+          fill={"clear"}
+          onClick={() => setShowActionSheet(true)}
+        >
+          <IonIcon icon={ellipsisHorizontal} color={"dark"} size={"large"} />
+        </IonButton>
       </IonItem>
-    </IonRouterLink>
+
+      <IonActionSheet
+        isOpen={showActionSheet}
+        onDidDismiss={() => setShowActionSheet(false)}
+        buttons={[
+          {
+            text: "Mark as Sold",
+            handler: markAsSold,
+          },
+        ]}
+      />
+    </>
   );
 };
 
