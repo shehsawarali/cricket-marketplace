@@ -26,6 +26,7 @@ import { Equipment } from "../../types";
 import Location from "../../types/Location.model";
 import { getCatalog } from "../../services/equipment";
 import { getLocationDetail } from "../../services/location";
+import ServerErrorAlert from "../../components/ServerErrorAlert";
 
 const Catalog: React.FC = () => {
   const history = useHistory();
@@ -138,6 +139,10 @@ const Catalog: React.FC = () => {
           parentRef={catalogRef.current}
         />
       </IonContent>
+
+      {(catalogQuery.isError || locationDetailQuery.isError) && (
+        <ServerErrorAlert />
+      )}
     </IonPage>
   );
 };

@@ -19,6 +19,7 @@ import MyListingCard from "../../components/MyListingCard.tsx/MyListingCard";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import { EquipmentListing } from "../../types/Equipment.model";
 import { getActiveListings, getSoldListings } from "../../services/equipment";
+import ServerErrorAlert from "../../components/ServerErrorAlert";
 
 const MyListings: React.FC = () => {
   const activeListQuery = useQuery("activeListings", getActiveListings);
@@ -130,6 +131,10 @@ const MyListings: React.FC = () => {
           </div>
         </IonRouterLink>
       </IonContent>
+
+      {(activeListQuery.isError || soldListQuery.isError) && (
+        <ServerErrorAlert />
+      )}
     </IonPage>
   );
 };

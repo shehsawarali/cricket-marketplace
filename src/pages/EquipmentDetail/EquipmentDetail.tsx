@@ -41,6 +41,7 @@ import RelatedEquipmentCard from "../../components/RelatedEquipmentCard/RelatedE
 import HideTabs from "../../components/HideTabs";
 import { Equipment } from "../../types/Equipment.model";
 import { getEquipmentDetail } from "../../services/equipment";
+import ServerErrorAlert from "../../components/ServerErrorAlert";
 
 const EquipmentDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -236,6 +237,8 @@ const EquipmentDetail: React.FC = () => {
           </IonText>
         </IonContent>
       )}
+
+      {equipmentQuery.isError && <ServerErrorAlert />}
     </IonPage>
   );
 };

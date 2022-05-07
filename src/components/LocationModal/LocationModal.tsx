@@ -18,6 +18,7 @@ import "./LocationModal.css";
 import { getLocationPredictions } from "../../services/location";
 import Location from "../../types/Location.model";
 import { useQuery } from "react-query";
+import ServerErrorAlert from "../ServerErrorAlert";
 
 interface LocationModalProps {
   isOpen: boolean;
@@ -110,6 +111,8 @@ const LocationModal: React.FC<LocationModalProps> = (props) => {
           ))}
         </div>
       </IonContent>
+
+      {locationQuery.isError && <ServerErrorAlert />}
     </IonModal>
   );
 };
