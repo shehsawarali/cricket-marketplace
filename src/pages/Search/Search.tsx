@@ -9,17 +9,31 @@ import {
   IonBackButton,
   IonSearchbar,
   IonSpinner,
+  IonIcon,
+  IonButton,
 } from "@ionic/react";
+import { funnelOutline } from "ionicons/icons";
 import { useQuery } from "react-query";
 
 import "./Search.css";
 import HideTabs from "../../components/HideTabs";
 import CatalogCard from "../../components/CatalogCard/CatalogCard";
-import { Equipment } from "../../types";
+import { Equipment, EquipmentSearchFilters } from "../../types";
 import { getSearchResults } from "../../services/equipment";
+import FiltersModal from "../../components/FiltersModal/FiltersModal";
+import ServerErrorAlert from "../../components/ServerErrorAlert";
 
 const Search: React.FC = () => {
-  const [query, setQuery] = React.useState("");
+  const [query, setQuery] = React.useState<string>("");
+  const [showFilters, setShowFilters] = React.useState<boolean>(false);
+
+  const [filters, setFilters] = React.useState<EquipmentSearchFilters>({
+    lowerPriceLimit: null,
+    upperPriceLimit: null,
+    categories: [],
+    brands: [],
+  });
+
   const searchQuery = useQuery(
     ["catalog", query],
     () => {
@@ -30,13 +44,16 @@ const Search: React.FC = () => {
     }
   );
 
+  const toggleFilters = () => {
+    setShowFilters((curr) => !curr);
+  };
+
   const handleQueryChange = (e: any) => {
     setQuery(e.target.value);
   };
 
   return (
     <IonPage>
-      <HideTabs />
       <IonHeader>
         <IonToolbar className={"ionic-padding-horizontal"}>
           <IonButtons slot="start">
@@ -52,6 +69,16 @@ const Search: React.FC = () => {
           showCancelButton="never"
           debounce={500}
         />
+
+        <div className={"ion-text-end ion-padding-end"}>
+          <IonButton
+            className={"ion-no-margin ion-no-padding"}
+            fill={"clear"}
+            onClick={toggleFilters}
+          >
+            <IonIcon icon={funnelOutline} color={"dark"} size={"small"} />
+          </IonButton>
+        </div>
 
         <div>
           {searchQuery.isLoading && (
@@ -74,7 +101,16 @@ const Search: React.FC = () => {
             </div>
           )}
         </div>
+
+        <FiltersModal
+          isOpen={showFilters}
+          close={toggleFilters}
+          filters={filters}
+          setFilters={setFilters}
+        />
       </IonContent>
+
+      {searchQuery.isError && <ServerErrorAlert />}
     </IonPage>
   );
 };

@@ -25,7 +25,7 @@ import HideTabs from "../../components/HideTabs";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import LocationModal from "../../components/LocationModal/LocationModal";
 import ImagesModal from "../../components/ImagesModal/ImagesModal";
-import { Category } from "../../types";
+import { EquipmentCategory } from "../../types";
 import { createEquipment, getCategories } from "../../services/equipment";
 import Location from "../../types/Location.model";
 import { sellFormValidation } from "../../constants";
@@ -129,7 +129,7 @@ const SellForm: React.FC = () => {
                     multiple
                   >
                     {categoryQuery.data?.map(
-                      (category: Category, index: number) => {
+                      (category: EquipmentCategory, index: number) => {
                         return (
                           <IonSelectOption
                             value={category.id}

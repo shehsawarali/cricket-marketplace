@@ -19,3 +19,20 @@ export interface EquipmentListing {
   price: number;
   title: string;
 }
+
+export interface EquipmentCategory {
+  id: string;
+  name: string;
+}
+
+export interface EquipmentBrand {
+  id: number;
+  name: string;
+}
+
+export interface EquipmentSearchFilters {
+  lowerPriceLimit: number | null;
+  upperPriceLimit: number | null;
+  categories: Array<number>;
+  brands: Array<number>;
+}
