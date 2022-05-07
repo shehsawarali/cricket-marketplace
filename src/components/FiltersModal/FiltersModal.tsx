@@ -1,32 +1,32 @@
 import React from "react";
+
+import { Formik, FormikValues } from "formik";
+import { closeOutline } from "ionicons/icons";
 import {
   IonButton,
   IonButtons,
+  IonContent,
+  IonFooter,
   IonHeader,
   IonIcon,
-  IonModal,
-  IonToolbar,
-  IonContent,
-  IonTitle,
+  IonInput,
   IonItem,
   IonLabel,
+  IonModal,
   IonSelect,
   IonSelectOption,
-  IonInput,
-  IonRange,
-  IonFooter,
+  IonTitle,
+  IonToolbar,
 } from "@ionic/react";
-import { closeOutline } from "ionicons/icons";
-import { Formik, FormikValues } from "formik";
-import {
-  EquipmentCategory,
-  EquipmentBrand,
-  EquipmentSearchFilters,
-} from "../../types";
 import { useQuery } from "react-query";
+
+import {
+  EquipmentBrand,
+  EquipmentCategory,
+  EquipmentSearchFilters,
+} from "../../types/Equipment.model";
 import { getCategories } from "../../services/equipment";
 import ServerErrorAlert from "../ServerErrorAlert";
-import Location from "../../types/Location.model";
 
 interface FiltersModalProps {
   isOpen: boolean;

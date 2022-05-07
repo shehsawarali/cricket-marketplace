@@ -1,17 +1,19 @@
 import React from "react";
+
+import { ellipsisHorizontal } from "ionicons/icons";
 import {
+  IonActionSheet,
+  IonButton,
+  IonCol,
+  IonIcon,
   IonItem,
   IonLabel,
   IonRouterLink,
-  IonCol,
   IonThumbnail,
-  IonButton,
-  IonIcon,
-  IonActionSheet,
 } from "@ionic/react";
+
 import defaultImage from "../../orange.jpeg";
-import { EquipmentListing } from "../../types";
-import { ellipsisHorizontal } from "ionicons/icons";
+import { EquipmentListing } from "../../types/Equipment.model";
 import { markEquipmentAsSold } from "../../services/equipment";
 
 const MyListingCard: React.FC<{

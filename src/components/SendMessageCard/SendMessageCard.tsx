@@ -1,15 +1,16 @@
 import React from "react";
+
+import { chatbubblesOutline } from "ionicons/icons";
 import {
+  IonButton,
   IonCard,
-  IonItem,
-  IonIcon,
-  IonLabel,
   IonCardContent,
   IonChip,
-  IonButton,
+  IonIcon,
   IonInput,
+  IonItem,
+  IonLabel,
 } from "@ionic/react";
-import { chatbubblesOutline } from "ionicons/icons";
 
 const SendMessageCard: React.FC = () => {
   return (

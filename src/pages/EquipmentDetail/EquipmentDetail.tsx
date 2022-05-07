@@ -2,46 +2,47 @@ import React from "react";
 
 import { Share } from "@capacitor/share";
 import {
+  arrowRedoSharp,
+  bookmarkSharp,
+  chatbubbleEllipsesOutline,
+  gitCompareOutline,
+  infiniteOutline,
+  locationOutline,
+} from "ionicons/icons";
+import {
+  IonBackButton,
+  IonButton,
+  IonButtons,
+  IonChip,
+  IonCol,
   IonContent,
   IonHeader,
   IonIcon,
+  IonImg,
+  IonItem,
   IonLabel,
+  IonList,
   IonPage,
   IonRow,
-  IonCol,
+  IonSlide,
+  IonSlides,
+  IonSpinner,
   IonText,
   IonTitle,
   IonToolbar,
-  IonBackButton,
-  IonButtons,
-  IonImg,
-  IonSlides,
-  IonSlide,
-  IonChip,
-  IonItem,
-  IonButton,
-  IonList,
-  IonSpinner,
 } from "@ionic/react";
-import {
-  chatbubbleEllipsesOutline,
-  locationOutline,
-  bookmarkSharp,
-  arrowRedoSharp,
-  infiniteOutline,
-  gitCompareOutline,
-} from "ionicons/icons";
+
 import { useQuery } from "react-query";
 import { useParams } from "react-router";
 
 import "./EquipmentDetail.css";
-import defaultImage from "../../orange.jpeg";
-import TechnicalDataField from "../../components/TechnicalDataField/TechnicalDataField";
-import RelatedEquipmentCard from "../../components/RelatedEquipmentCard/RelatedEquipmentCard";
 import HideTabs from "../../components/HideTabs";
+import RelatedEquipmentCard from "../../components/RelatedEquipmentCard/RelatedEquipmentCard";
+import ServerErrorAlert from "../../components/ServerErrorAlert";
+import TechnicalDataField from "../../components/TechnicalDataField/TechnicalDataField";
+import defaultImage from "../../orange.jpeg";
 import { Equipment } from "../../types/Equipment.model";
 import { getEquipmentDetail } from "../../services/equipment";
-import ServerErrorAlert from "../../components/ServerErrorAlert";
 
 const EquipmentDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();

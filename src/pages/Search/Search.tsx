@@ -1,27 +1,26 @@
 import React from "react";
 
+import { funnelOutline } from "ionicons/icons";
 import {
+  IonBackButton,
+  IonButton,
+  IonButtons,
   IonContent,
   IonHeader,
+  IonIcon,
   IonPage,
-  IonToolbar,
-  IonButtons,
-  IonBackButton,
   IonSearchbar,
   IonSpinner,
-  IonIcon,
-  IonButton,
+  IonToolbar,
 } from "@ionic/react";
-import { funnelOutline } from "ionicons/icons";
 import { useQuery } from "react-query";
 
 import "./Search.css";
-import HideTabs from "../../components/HideTabs";
 import CatalogCard from "../../components/CatalogCard/CatalogCard";
-import { Equipment, EquipmentSearchFilters } from "../../types";
-import { getSearchResults } from "../../services/equipment";
 import FiltersModal from "../../components/FiltersModal/FiltersModal";
 import ServerErrorAlert from "../../components/ServerErrorAlert";
+import { Equipment, EquipmentSearchFilters } from "../../types/Equipment.model";
+import { getSearchResults } from "../../services/equipment";
 
 const Search: React.FC = () => {
   const [query, setQuery] = React.useState<string>("");

@@ -1,4 +1,5 @@
 import React from "react";
+
 import { IonAlert } from "@ionic/react";
 
 const ServerErrorAlert: React.FC<{ text?: string }> = ({ text }) => {

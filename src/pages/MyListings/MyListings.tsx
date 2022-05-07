@@ -1,30 +1,30 @@
-import React, { useState } from "react";
+import React from "react";
 
 import {
+  IonButton,
   IonContent,
   IonHeader,
   IonPage,
-  IonToolbar,
-  IonText,
-  IonButton,
   IonRouterLink,
-  IonSpinner,
   IonSegment,
   IonSegmentButton,
+  IonSpinner,
+  IonText,
+  IonToolbar,
 } from "@ionic/react";
 import { useQuery } from "react-query";
 
 import "./MyListings.css";
-import MyListingCard from "../../components/MyListingCard.tsx/MyListingCard";
+import MyListingCard from "../../components/MyListingCard/MyListingCard";
 import PageTitle from "../../components/PageTitle/PageTitle";
+import ServerErrorAlert from "../../components/ServerErrorAlert";
 import { EquipmentListing } from "../../types/Equipment.model";
 import { getActiveListings, getSoldListings } from "../../services/equipment";
-import ServerErrorAlert from "../../components/ServerErrorAlert";
 
 const MyListings: React.FC = () => {
   const activeListQuery = useQuery("activeListings", getActiveListings);
   const soldListQuery = useQuery("soldListings", getSoldListings);
-  const [segment, setSegment] = useState<string>("active");
+  const [segment, setSegment] = React.useState<string>("active");
 
   const activeList = activeListQuery.data?.equipment || [];
   const soldList = soldListQuery.data?.equipment || [];

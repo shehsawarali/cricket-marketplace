@@ -1,23 +1,24 @@
 import React from "react";
+
+import { Geolocation } from "@capacitor/geolocation";
+import { closeOutline, locateOutline, locationOutline } from "ionicons/icons";
 import {
   IonButton,
   IonButtons,
+  IonContent,
   IonHeader,
   IonIcon,
+  IonItem,
   IonLabel,
   IonModal,
-  IonToolbar,
-  IonContent,
-  IonItem,
   IonSearchbar,
+  IonToolbar,
 } from "@ionic/react";
-import { closeOutline, locateOutline, locationOutline } from "ionicons/icons";
-import { Geolocation } from "@capacitor/geolocation";
+import { useQuery } from "react-query";
 
 import "./LocationModal.css";
 import { getLocationPredictions } from "../../services/location";
 import Location from "../../types/Location.model";
-import { useQuery } from "react-query";
 import ServerErrorAlert from "../ServerErrorAlert";
 
 interface LocationModalProps {

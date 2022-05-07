@@ -1,20 +1,21 @@
 import React from "react";
+
+import { locationOutline, chatbubblesOutline } from "ionicons/icons";
 import {
   IonChip,
-  IonLabel,
-  IonImg,
-  IonSlides,
-  IonSlide,
   IonIcon,
-  IonRow,
-  IonText,
+  IonImg,
+  IonLabel,
   IonRouterLink,
+  IonRow,
+  IonSlide,
+  IonSlides,
+  IonText,
 } from "@ionic/react";
-import { locationOutline, chatbubblesOutline } from "ionicons/icons";
 
 import "./CatalogCard.css";
-import { Equipment } from "../../types";
 import defaultImage from "../../orange.jpeg";
+import { Equipment } from "../../types/Equipment.model";
 
 const CatalogCard: React.FC<{ equipment: Equipment }> = ({ equipment }) => {
   return (

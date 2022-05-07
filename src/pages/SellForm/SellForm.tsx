@@ -2,34 +2,34 @@ import React from "react";
 
 import { Formik, FormikValues } from "formik";
 import {
-  IonContent,
-  IonHeader,
-  IonPage,
-  IonToolbar,
-  IonButtons,
   IonBackButton,
+  IonButton,
+  IonButtons,
+  IonContent,
+  IonFooter,
+  IonHeader,
+  IonInput,
   IonItem,
   IonLabel,
-  IonInput,
+  IonPage,
   IonSelect,
   IonSelectOption,
-  IonButton,
-  IonFooter,
-  IonTextarea,
   IonText,
+  IonTextarea,
+  IonToolbar,
 } from "@ionic/react";
 import { useMutation, useQuery } from "react-query";
 
 import "./SellForm.css";
 import HideTabs from "../../components/HideTabs";
-import PageTitle from "../../components/PageTitle/PageTitle";
-import LocationModal from "../../components/LocationModal/LocationModal";
 import ImagesModal from "../../components/ImagesModal/ImagesModal";
-import { EquipmentCategory } from "../../types";
-import { createEquipment, getCategories } from "../../services/equipment";
 import Location from "../../types/Location.model";
-import { sellFormValidation } from "../../constants";
+import LocationModal from "../../components/LocationModal/LocationModal";
+import PageTitle from "../../components/PageTitle/PageTitle";
 import ServerErrorAlert from "../../components/ServerErrorAlert";
+import { EquipmentCategory } from "../../types/Equipment.model";
+import { createEquipment, getCategories } from "../../services/equipment";
+import { sellFormValidation } from "../../constants";
 
 const SellForm: React.FC = () => {
   const categoryQuery = useQuery("equipmentCategories", getCategories, {

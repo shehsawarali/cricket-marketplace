@@ -1,32 +1,33 @@
 import React from "react";
+
+import { locationOutline, searchOutline } from "ionicons/icons";
 import {
-  IonContent,
-  IonPage,
-  IonIcon,
-  IonRow,
-  IonText,
-  IonLabel,
-  IonToolbar,
-  IonHeader,
-  IonInfiniteScroll,
-  IonInfiniteScrollContent,
   IonButton,
   IonButtons,
+  IonContent,
+  IonHeader,
+  IonIcon,
+  IonInfiniteScroll,
+  IonInfiniteScrollContent,
+  IonLabel,
+  IonPage,
+  IonRow,
   IonSpinner,
+  IonText,
+  IonToolbar,
 } from "@ionic/react";
-import { locationOutline, searchOutline } from "ionicons/icons";
 import { useInfiniteQuery, useQuery } from "react-query";
 import { useHistory } from "react-router";
 
 import "./Catalog.css";
 import CatalogCard from "../../components/CatalogCard/CatalogCard";
-import PageTitle from "../../components/PageTitle/PageTitle";
-import LocationModal from "../../components/LocationModal/LocationModal";
-import { Equipment } from "../../types";
 import Location from "../../types/Location.model";
+import LocationModal from "../../components/LocationModal/LocationModal";
+import PageTitle from "../../components/PageTitle/PageTitle";
+import ServerErrorAlert from "../../components/ServerErrorAlert";
+import { Equipment } from "../../types/Equipment.model";
 import { getCatalog } from "../../services/equipment";
 import { getLocationDetail } from "../../services/location";
-import ServerErrorAlert from "../../components/ServerErrorAlert";
 
 const Catalog: React.FC = () => {
   const history = useHistory();

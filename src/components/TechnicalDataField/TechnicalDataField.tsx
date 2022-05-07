@@ -1,5 +1,7 @@
 import React from "react";
+
 import { IonItem, IonText } from "@ionic/react";
+
 import "./TechinicalDataField.css";
 
 interface TechnicalData {

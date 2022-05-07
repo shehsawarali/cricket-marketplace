@@ -1,26 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
+
+import { Camera } from "@capacitor/camera";
+import { closeOutline } from "ionicons/icons";
 import {
   IonButton,
   IonButtons,
+  IonCol,
+  IonContent,
+  IonGrid,
   IonHeader,
   IonIcon,
+  IonImg,
   IonInput,
+  IonItem,
   IonLabel,
   IonModal,
-  IonToolbar,
-  IonContent,
-  IonCol,
-  IonItem,
-  IonTitle,
-  IonImg,
-  IonGrid,
   IonRow,
-  IonItemDivider,
+  IonTitle,
+  IonToolbar,
 } from "@ionic/react";
-import { closeOutline } from "ionicons/icons";
 
 import "./ImagesModal.css";
-import { Camera } from "@capacitor/camera";
 
 interface ImageModalProps {
   isOpen: boolean;
@@ -30,8 +30,8 @@ interface ImageModalProps {
 }
 
 const ImagesModal: React.FC<ImageModalProps> = (props) => {
-  const [selectedImages, setSelectedImages] = useState<Array<object>>([]);
-  const [defaultImage, setDefaultImage] = useState<string | null>(null);
+  const [selectedImages, setSelectedImages] = React.useState<Array<object>>([]);
+  const [defaultImage, setDefaultImage] = React.useState<string | null>(null);
 
   const attachPictures = async () => {
     const cameraResultImg = await Camera.pickImages({

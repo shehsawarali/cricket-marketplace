@@ -1,11 +1,13 @@
 import React from "react";
+
 import {
   IonImg,
-  IonSlides,
-  IonSlide,
-  IonText,
   IonRouterLink,
+  IonSlide,
+  IonSlides,
+  IonText,
 } from "@ionic/react";
+
 import image from "../../orange.jpeg";
 import "./RelatedEquipmentCard.css";
 
