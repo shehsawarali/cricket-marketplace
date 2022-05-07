@@ -21,7 +21,6 @@ import {
 import { useMutation, useQuery } from "react-query";
 
 import "./SellForm.css";
-import HideTabs from "../../components/HideTabs";
 import ImagesModal from "../../components/ImagesModal/ImagesModal";
 import Location from "../../types/Location.model";
 import LocationModal from "../../components/LocationModal/LocationModal";
@@ -83,7 +82,6 @@ const SellForm: React.FC = () => {
 
   return (
     <IonPage ref={pageRef}>
-      <HideTabs />
       <IonHeader className={"ion-no-border"}>
         <IonToolbar className={"ionic-padding-horizontal"}>
           <IonButtons slot="start">

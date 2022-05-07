@@ -36,7 +36,6 @@ import { useQuery } from "react-query";
 import { useParams } from "react-router";
 
 import "./EquipmentDetail.css";
-import HideTabs from "../../components/HideTabs";
 import RelatedEquipmentCard from "../../components/RelatedEquipmentCard/RelatedEquipmentCard";
 import ServerErrorAlert from "../../components/ServerErrorAlert";
 import TechnicalDataField from "../../components/TechnicalDataField/TechnicalDataField";
@@ -70,7 +69,6 @@ const EquipmentDetail: React.FC = () => {
 
   return (
     <IonPage className={"equipment-detail"}>
-      <HideTabs />
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
