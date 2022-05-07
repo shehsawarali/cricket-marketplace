@@ -1,28 +1,23 @@
-import { useState } from "react";
+import React from "react";
 import {
   IonButton,
   IonButtons,
   IonHeader,
   IonIcon,
-  IonInput,
   IonLabel,
   IonModal,
   IonToolbar,
   IonContent,
-  IonRow,
   IonItem,
+  IonSearchbar,
 } from "@ionic/react";
-import {
-  closeOutline,
-  locateOutline,
-  locationOutline,
-  searchOutline,
-} from "ionicons/icons";
+import { closeOutline, locateOutline, locationOutline } from "ionicons/icons";
 import { Geolocation } from "@capacitor/geolocation";
 
 import "./LocationModal.css";
 import { getLocationPredictions } from "../../services/location";
 import Location from "../../types/Location.model";
+import { useQuery } from "react-query";
 
 interface LocationModalProps {
   isOpen: boolean;
@@ -32,7 +27,17 @@ interface LocationModalProps {
 }
 
 const LocationModal: React.FC<LocationModalProps> = (props) => {
-  const [locations, setLocations] = useState([]);
+  const [query, setQuery] = React.useState("");
+
+  const locationQuery = useQuery(
+    ["locationSearch", query],
+    () => {
+      if (query) return getLocationPredictions(query);
+    },
+    {
+      select: (data) => data.predictions,
+    }
+  );
 
   const select = (location: Location) => {
     props.setValue(location);
@@ -46,11 +51,7 @@ const LocationModal: React.FC<LocationModalProps> = (props) => {
   };
 
   const onChange = (e: any) => {
-    const query = e.target.value;
-
-    getLocationPredictions(query).then((response) => {
-      setLocations(response.predictions);
-    });
+    setQuery(e.target.value);
   };
 
   return (
@@ -84,18 +85,16 @@ const LocationModal: React.FC<LocationModalProps> = (props) => {
       </IonHeader>
 
       <IonContent>
-        <IonRow className={"ion-align-items-center location-input-row"}>
-          <IonIcon icon={searchOutline} className={"location-input-icon"} />
-          <IonInput
-            placeholder={"Location"}
-            className={"location-input"}
-            clearInput
-            onIonChange={onChange}
-          />
-        </IonRow>
+        <IonSearchbar
+          value={query}
+          onIonChange={onChange}
+          showCancelButton="never"
+          debounce={500}
+          placeholder={"Location"}
+        />
 
         <div id={"results"}>
-          {locations.map((location: Location, index: any) => (
+          {locationQuery.data?.map((location: Location, index: any) => (
             <IonItem onClick={() => select(location)} key={index}>
               <IonIcon slot="start" icon={locationOutline} />
 

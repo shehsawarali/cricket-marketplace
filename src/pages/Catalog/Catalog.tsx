@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import {
   IonContent,
   IonPage,
@@ -15,7 +15,7 @@ import {
   IonSpinner,
 } from "@ionic/react";
 import { locationOutline, searchOutline } from "ionicons/icons";
-import { useInfiniteQuery } from "react-query";
+import { useInfiniteQuery, useQuery } from "react-query";
 import { useHistory } from "react-router";
 
 import "./Catalog.css";
@@ -25,18 +25,32 @@ import LocationModal from "../../components/LocationModal/LocationModal";
 import { Equipment } from "../../types";
 import Location from "../../types/Location.model";
 import { getCatalog } from "../../services/equipment";
+import { getLocationDetail } from "../../services/location";
 
 const Catalog: React.FC = () => {
   const history = useHistory();
   const catalogRef = React.useRef<any>(null);
-  const scrollRef = useRef<HTMLIonInfiniteScrollElement>(null);
-  const [scrollDisabled, setScrollDisabled] = useState(false);
-  const [location, setLocation] = useState<Location | null>(null);
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const scrollRef = React.useRef<HTMLIonInfiniteScrollElement>(null);
+
+  const [scrollDisabled, setScrollDisabled] = React.useState(false);
+  const [location, setLocation] = React.useState<Location | null>(null);
+  const [showModal, setShowModal] = React.useState<boolean>(false);
+
+  const locationDetailQuery = useQuery(
+    ["locationDetail", location],
+    () => {
+      if (location) return getLocationDetail(location.place_id);
+    },
+    {
+      select: (data) => data.result.geometry.location,
+    }
+  );
 
   const catalogQuery = useInfiniteQuery(
-    ["catalog"],
-    ({ pageParam = 1 }) => getCatalog(pageParam),
+    ["catalog", locationDetailQuery.data?.lat],
+    ({ pageParam = 1 }) => {
+      return getCatalog(pageParam, locationDetailQuery.data);
+    },
     {
       getNextPageParam: (lastPage, allPages) => {
         return lastPage.nextPage;
@@ -98,7 +112,7 @@ const Catalog: React.FC = () => {
         {!catalogQuery.isLoading && (
           <>
             {catalogQuery.data?.pages.map((pageData: any) => {
-              return pageData.equipment.map((equipment: Equipment) => (
+              return pageData.equipment?.map((equipment: Equipment) => (
                 <CatalogCard key={equipment.id} equipment={equipment} />
               ));
             })}

@@ -4,8 +4,17 @@ export const getEquipmentDetail = (id: string) => {
   return service.get(`/equipment/${id}`);
 };
 
-export const getCatalog = (page: number) => {
-  return service.get(`/equipment?page=${page}`).then((res) => res.data);
+export const getCatalog = (
+  page: number,
+  coordinates: { lat: number; lng: number }
+) => {
+  let url: string = `/equipment?page=${page}`;
+
+  if (coordinates) {
+    url += `&lat=${coordinates.lat}&lng=${coordinates.lng}`;
+  }
+
+  return service.get(url).then((res) => res.data);
 };
 
 export const getActiveListings = () => {
