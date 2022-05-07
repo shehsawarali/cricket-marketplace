@@ -1,6 +1,6 @@
 import React from "react";
 
-import { funnelOutline } from "ionicons/icons";
+import { filterOutline } from "ionicons/icons";
 import {
   IonBackButton,
   IonButton,
@@ -58,6 +58,11 @@ const Search: React.FC = () => {
           <IonButtons slot="start">
             <IonBackButton color={"dark"} />
           </IonButtons>
+          <IonButtons slot="end">
+            <IonButton onClick={toggleFilters}>
+              <IonIcon color={"dark"} icon={filterOutline} slot={"end"} />
+            </IonButton>
+          </IonButtons>
         </IonToolbar>
       </IonHeader>
 
@@ -68,16 +73,6 @@ const Search: React.FC = () => {
           showCancelButton="never"
           debounce={500}
         />
-
-        <div className={"ion-text-end ion-padding-end"}>
-          <IonButton
-            className={"ion-no-margin ion-no-padding"}
-            fill={"clear"}
-            onClick={toggleFilters}
-          >
-            <IonIcon icon={funnelOutline} color={"dark"} size={"small"} />
-          </IonButton>
-        </div>
 
         <div>
           {searchQuery.isLoading && (
